@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Upload - SIS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>SIS Smart Integrator Solution</h1>
+                <p>www.sisolusi.com</p>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="all_projects.html" class="active">Active Projects</a>
+                <a href="#">Completed Project</a>
+                <a href="#">Files</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="all_projects.html">Active Projects</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="project_details.html">Tower Bersama Indonesia Group - Bali</a>
+            <span class="breadcrumb-separator">></span>
+            <span class="breadcrumb-current">Documentation Upload</span>
+        </nav>
+
+        <!-- Upload Content -->
+        <section class="tab-content">
+            <div class="tab-pane active">
+                <div class="page-header">
+                    <h2>Documentation Management</h2>
+                    <p>Upload and manage project documentation images</p>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <div class="form-card">
+                        <h3>Upload Documentation Images</h3>
+                        <div class="upload-grid">
+                            <div class="upload-category">
+                                <h4>Survey Documentation</h4>
+                                <div class="upload-box">
+                                    <div class="upload-icon">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                                            <polyline points="17,8 12,3 7,8" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                                            <line x1="12" y1="3" x2="12" y2="15" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <p class="upload-text">Survey Reports & Images</p>
+                                    <input type="file" id="survey-upload" class="file-input" multiple accept="image/*">
+                                    <button type="button" class="upload-btn">Choose Files</button>
+                                </div>
+                                <div class="uploaded-files" id="survey-files"></div>
+                            </div>
+
+                            <div class="upload-category">
+                                <h4>Installation Documentation</h4>
+                                <div class="upload-box">
+                                    <div class="upload-icon">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+                                            <polyline points="17,8 12,3 7,8" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+                                            <line x1="12" y1="3" x2="12" y2="15" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <p class="upload-text">Installation Photos & Guides</p>
+                                    <input type="file" id="installation-upload" class="file-input" multiple accept="image/*">
+                                    <button type="button" class="upload-btn">Choose Files</button>
+                                </div>
+                                <div class="uploaded-files" id="installation-files"></div>
+                            </div>
+
+                            <div class="upload-category">
+                                <h4>Programming Documentation</h4>
+                                <div class="upload-box">
+                                    <div class="upload-icon">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#FF9800" stroke-width="2" stroke-linecap="round"/>
+                                            <polyline points="17,8 12,3 7,8" stroke="#FF9800" stroke-width="2" stroke-linecap="round"/>
+                                            <line x1="12" y1="3" x2="12" y2="15" stroke="#FF9800" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <p class="upload-text">Code Documentation & Configs</p>
+                                    <input type="file" id="programming-upload" class="file-input" multiple accept="image/*,.pdf">
+                                    <button type="button" class="upload-btn">Choose Files</button>
+                                </div>
+                                <div class="uploaded-files" id="programming-files"></div>
+                            </div>
+
+                            <div class="upload-category">
+                                <h4>Testing Documentation</h4>
+                                <div class="upload-box">
+                                    <div class="upload-icon">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/>
+                                            <polyline points="17,8 12,3 7,8" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/>
+                                            <line x1="12" y1="3" x2="12" y2="15" stroke="#E74C3C" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <p class="upload-text">Test Reports & Results</p>
+                                    <input type="file" id="testing-upload" class="file-input" multiple accept="image/*,.pdf">
+                                    <button type="button" class="upload-btn">Choose Files</button>
+                                </div>
+                                <div class="uploaded-files" id="testing-files"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-primary">Save All Documentation</button>
+                            <button type="button" class="btn-secondary">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Existing Documentation Gallery -->
+                <div class="documentation-gallery">
+                    <h3>Current Documentation Gallery</h3>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <div class="gallery-image">
+                                <img src="https://via.placeholder.com/300x200/4A90E2/FFFFFF?text=Survey+Report" alt="Survey Report">
+                            </div>
+                            <div class="gallery-info">
+                                <h4>Survey Report</h4>
+                                <p>Initial site survey documentation</p>
+                                <div class="gallery-actions">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn download">Download</button>
+                                    <button class="action-btn delete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <div class="gallery-image">
+                                <img src="https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=Installation+Guide" alt="Installation Guide">
+                            </div>
+                            <div class="gallery-info">
+                                <h4>Installation Guide</h4>
+                                <p>Step-by-step installation process</p>
+                                <div class="gallery-actions">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn download">Download</button>
+                                    <button class="action-btn delete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <div class="gallery-image">
+                                <img src="https://via.placeholder.com/300x200/FF9800/FFFFFF?text=Technical+Specs" alt="Technical Specifications">
+                            </div>
+                            <div class="gallery-info">
+                                <h4>Technical Specifications</h4>
+                                <p>System technical documentation</p>
+                                <div class="gallery-actions">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn download">Download</button>
+                                    <button class="action-btn delete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item">
+                            <div class="gallery-image">
+                                <img src="https://via.placeholder.com/300x200/E74C3C/FFFFFF?text=Project+Plan" alt="Project Plan">
+                            </div>
+                            <div class="gallery-info">
+                                <h4>Project Plan</h4>
+                                <p>Overall project timeline and milestones</p>
+                                <div class="gallery-actions">
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn download">Download</button>
+                                    <button class="action-btn delete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // File upload functionality for documentation
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadCategories = ['survey', 'installation', 'programming', 'testing'];
+            
+            uploadCategories.forEach(category => {
+                const fileInput = document.getElementById(`${category}-upload`);
+                const uploadBtn = fileInput.nextElementSibling;
+                const uploadBox = fileInput.parentElement;
+                const uploadedFiles = document.getElementById(`${category}-files`);
+                
+                uploadBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    fileInput.click();
+                });
+                
+                uploadBox.addEventListener('click', function() {
+                    fileInput.click();
+                });
+                
+                fileInput.addEventListener('change', function(e) {
+                    handleFiles(e.target.files, uploadedFiles);
+                });
+                
+                // Drag and drop
+                uploadBox.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    uploadBox.classList.add('drag-over');
+                });
+                
+                uploadBox.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    uploadBox.classList.remove('drag-over');
+                });
+                
+                uploadBox.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    uploadBox.classList.remove('drag-over');
+                    handleFiles(e.dataTransfer.files, uploadedFiles);
+                });
+            });
+            
+            function handleFiles(files, container) {
+                for (let file of files) {
+                    if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+                        addUploadedFile(file, container);
+                    }
+                }
+            }
+            
+            function addUploadedFile(file, container) {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'uploaded-file-item';
+                
+                const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                const isImage = file.type.startsWith('image/');
+                
+                fileItem.innerHTML = `
+                    <div class="file-preview">
+                        ${isImage ? 
+                            `<img src="${URL.createObjectURL(file)}" alt="${file.name}" class="file-image">` :
+                            `<div class="file-icon">📄</div>`
+                        }
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${fileSize} MB</div>
+                    </div>
+                    <button class="remove-file" onclick="this.parentElement.remove()">×</button>
+                `;
+                
+                container.appendChild(fileItem);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Bersama Indonesia Group - Bali - SIS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>SIS Smart Integrator Solution</h1>
+                <p>www.sisolusi.com</p>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="all_projects.html" class="active">Active Projects</a>
+                <a href="#">Completed Project</a>
+                <a href="#">Files</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="all_projects.html">Active Projects</a>
+            <span class="breadcrumb-separator">></span>
+            <span class="breadcrumb-current">Tower Bersama Indonesia Group - Bali</span>
+        </nav>
+
+        <!-- Project Header -->
+        <section class="project-header-section">
+            <div class="project-title">
+                <h1>Tower Bersama Indonesia Group - Bali</h1>
+                <span class="project-status-badge active">Active</span>
+            </div>
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Start Date:</span>
+                    <span class="meta-value">1 Januari 2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">End Date:</span>
+                    <span class="meta-value">31 Maret 2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Team:</span>
+                    <span class="meta-value">5 Members</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab Navigation -->
+        <section class="tab-navigation">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <a href="installation.html" class="tab-btn">Installation</a>
+                <a href="programming.html" class="tab-btn">Programming</a>
+                <a href="troubleshooting.html" class="tab-btn">Troubleshooting</a>
+                <a href="report_progress.html" class="tab-btn">Report Progress</a>
+            </div>
+        </section>
+
+        <!-- Tab Content -->
+        <section class="tab-content">
+            <!-- Overview Tab -->
+            <div class="tab-pane active" id="overview">
+                <div class="content-grid">
+                    <!-- Progress Overview -->
+                    <div class="progress-overview">
+                        <h2>Progress Overview</h2>
+                        <div class="progress-stages">
+                            <div class="progress-stage">
+                                <div class="stage-header">
+                                    <span class="stage-name">Survey</span>
+                                    <span class="stage-percentage">100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill green" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-stage">
+                                <div class="stage-header">
+                                    <span class="stage-name">Installation</span>
+                                    <span class="stage-percentage">85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill orange" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-stage">
+                                <div class="stage-header">
+                                    <span class="stage-name">Programming</span>
+                                    <span class="stage-percentage">10%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill red" style="width: 10%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-stage">
+                                <div class="stage-header">
+                                    <span class="stage-name">Testing</span>
+                                    <span class="stage-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill gray" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-stage">
+                                <div class="stage-header">
+                                    <span class="stage-name">Training</span>
+                                    <span class="stage-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill gray" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documentation -->
+                    <div class="documentation">
+                        <h2>Documentation</h2>
+                        <div class="documentation-grid">
+                            <div class="doc-item">
+                                <div class="doc-image">
+                                    <img src="https://via.placeholder.com/300x200/4A90E2/FFFFFF?text=Survey+Report" alt="Survey Report">
+                                </div>
+                                <p class="doc-title">Survey Report</p>
+                            </div>
+                            
+                            <div class="doc-item">
+                                <div class="doc-image">
+                                    <img src="https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=Installation+Guide" alt="Installation Guide">
+                                </div>
+                                <p class="doc-title">Installation Guide</p>
+                            </div>
+                            
+                            <div class="doc-item">
+                                <div class="doc-image">
+                                    <img src="https://via.placeholder.com/300x200/FF9800/FFFFFF?text=Technical+Specs" alt="Technical Specifications">
+                                </div>
+                                <p class="doc-title">Technical Specifications</p>
+                            </div>
+                            
+                            <div class="doc-item">
+                                <div class="doc-image">
+                                    <img src="https://via.placeholder.com/300x200/E74C3C/FFFFFF?text=Project+Plan" alt="Project Plan">
+                                </div>
+                                <p class="doc-title">Project Plan</p>
+                            </div>
+                        </div>
+                        <button class="view-all-btn" onclick="window.location.href='documentation_upload.html'">View All Image ></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Tab Panes (Hidden by default) -->
+            <div class="tab-pane" id="installation">
+                <div class="content-section">
+                    <h2>Installation Details</h2>
+                    <p>Installation information will be displayed here...</p>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="programming">
+                <div class="content-section">
+                    <h2>Programming Details</h2>
+                    <p>Programming information will be displayed here...</p>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="troubleshooting">
+                <div class="content-section">
+                    <h2>Troubleshooting</h2>
+                    <p>Troubleshooting information will be displayed here...</p>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="report">
+                <div class="content-section">
+                    <h2>Report Progress</h2>
+                    <p>Progress reporting will be displayed here...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+
+                    // Remove active class from all buttons and panes
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding pane
+                    this.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

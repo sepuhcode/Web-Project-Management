@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>SIS Smart Integrator Solution</h1>
+                <p>www.sisolusi.com</p>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#">Active Projects</a>
+                <a href="#">Completed Project</a>
+                <a href="#">Files</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <section class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="#4A90E2" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3>Active Projects</h3>
+                    <p class="stat-number">9</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#4CAF50" stroke-width="2"/>
+                        <path d="M9 12l2 2 4-4" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3>Completed Projects</h3>
+                    <p class="stat-number">5</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#FF9800" stroke-width="2"/>
+                        <path d="M14 2v6h6" stroke="#FF9800" stroke-width="2"/>
+                        <path d="M8 13h8M8 17h6" stroke="#FF9800" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3>Issues Reported</h3>
+                    <p class="stat-number">5</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards">
+            <div class="card">
+                <h2>Progress Overview</h2>
+                <div class="progress-list">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span>TBIG BALI</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill orange" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span>MENARA MANDIRI</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span>JAPFA</span>
+                            <span>10%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill red" style="width: 10%"></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="all_projects.html" class="card-btn blue">View All Project ></a>
+            </div>
+
+            <div class="card">
+                <h2>Recent Issues</h2>
+                <div class="issues-list">
+                    <div class="issue-item">
+                        <div class="issue-content">
+                            <h4>Audio Feedback MM</h4>
+                            <p>Reported: 2 Januari 2026</p>
+                        </div>
+                    </div>
+                    
+                    <div class="issue-item">
+                        <div class="issue-content">
+                            <h4>BUG SWITCHING MM</h4>
+                            <p>Reported: 2 Januari 2026</p>
+                        </div>
+                    </div>
+                    
+                    <div class="issue-item">
+                        <div class="issue-content">
+                            <h4>BUG CAMERA MM</h4>
+                            <p>Reported: 2 Januari 2026</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="card-btn red">View All Issue ></button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
