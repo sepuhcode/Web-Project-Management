@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Progress - Tower Bersama Indonesia Group - Bali - SIS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>SIS Smart Integrator Solution</h1>
+                <p>www.sisolusi.com</p>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="all_projects.html" class="active">Active Projects</a>
+                <a href="#">Completed Project</a>
+                <a href="#">Files</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="all_projects.html">Active Projects</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="project_details.html">Tower Bersama Indonesia Group - Bali</a>
+            <span class="breadcrumb-separator">></span>
+            <span class="breadcrumb-current">Report Progress</span>
+        </nav>
+
+        <!-- Tab Navigation -->
+        <section class="tab-navigation">
+            <div class="tabs">
+                <a href="project_details.html" class="tab-btn">Overview</a>
+                <a href="installation.html" class="tab-btn">Installation</a>
+                <a href="programming.html" class="tab-btn">Programming</a>
+                <a href="troubleshooting.html" class="tab-btn">Troubleshooting</a>
+                <a href="report_progress.html" class="tab-btn active">Report Progress</a>
+            </div>
+        </section>
+
+        <!-- Report Progress Content -->
+        <section class="tab-content">
+            <div class="tab-pane active">
+                <div class="page-header">
+                    <h2>Progress Reporting</h2>
+                    <p>Submit daily/weekly progress reports and documentation</p>
+                </div>
+
+                <!-- Progress Report Form -->
+                <div class="report-form-container">
+                    <div class="form-card">
+                        <h3>Submit Progress Report</h3>
+                        <form class="progress-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="report-date">Report Date</label>
+                                    <input type="date" id="report-date" name="report-date" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="report-type">Report Type</label>
+                                    <select id="report-type" name="report-type" required>
+                                        <option value="">Select Type</option>
+                                        <option value="daily">Daily Report</option>
+                                        <option value="weekly">Weekly Report</option>
+                                        <option value="milestone">Milestone Report</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="progress-summary">Progress Summary</label>
+                                    <textarea id="progress-summary" name="progress-summary" rows="4" placeholder="Describe the progress made..." required></textarea>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="issues-faced">Issues Faced</label>
+                                    <textarea id="issues-faced" name="issues-faced" rows="3" placeholder="Any issues or challenges encountered..."></textarea>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="next-steps">Next Steps</label>
+                                    <textarea id="next-steps" name="next-steps" rows="3" placeholder="Planned activities for next period..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Stage Progress Updates -->
+                            <div class="progress-section">
+                                <h4>Stage Progress Updates</h4>
+                                <div class="stage-progress-grid">
+                                    <div class="form-group">
+                                        <label for="survey-progress">Survey (%)</label>
+                                        <input type="number" id="survey-progress" name="survey-progress" min="0" max="100" value="100">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="installation-progress">Installation (%)</label>
+                                        <input type="number" id="installation-progress" name="installation-progress" min="0" max="100" value="85">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="programming-progress">Programming (%)</label>
+                                        <input type="number" id="programming-progress" name="programming-progress" min="0" max="100" value="10">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="testing-progress">Testing (%)</label>
+                                        <input type="number" id="testing-progress" name="testing-progress" min="0" max="100" value="0">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="training-progress">Training (%)</label>
+                                        <input type="number" id="training-progress" name="training-progress" min="0" max="100" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Documentation Upload -->
+                            <div class="upload-section">
+                                <h4>Documentation Upload</h4>
+                                <div class="upload-area">
+                                    <div class="upload-box">
+                                        <div class="upload-icon">
+                                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                                                <polyline points="17,8 12,3 7,8" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                                                <line x1="12" y1="3" x2="12" y2="15" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                        </div>
+                                        <p class="upload-text">Drag and drop images here or click to browse</p>
+                                        <p class="upload-subtext">Supported formats: JPG, PNG, PDF (Max 5MB)</p>
+                                        <input type="file" id="file-upload" class="file-input" multiple accept="image/*,.pdf">
+                                        <button type="button" class="upload-btn">Choose Files</button>
+                                    </div>
+                                    
+                                    <div class="uploaded-files" id="uploaded-files">
+                                        <!-- Uploaded files will be displayed here -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Submit Report</button>
+                                <button type="button" class="btn-secondary">Save as Draft</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Recent Reports -->
+                <div class="recent-reports">
+                    <h3>Recent Reports</h3>
+                    <div class="reports-list">
+                        <div class="report-item">
+                            <div class="report-info">
+                                <h4>Daily Report - 20 Januari 2026</h4>
+                                <p>Installation progress updated to 85%. Programming phase initiated.</p>
+                                <span class="report-date">Submitted: 20 Jan 2026, 5:30 PM</span>
+                            </div>
+                            <div class="report-actions">
+                                <button class="action-btn view">View</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+                        
+                        <div class="report-item">
+                            <div class="report-info">
+                                <h4>Weekly Report - Week 3</h4>
+                                <p>Major milestone achieved: Installation phase 85% complete.</p>
+                                <span class="report-date">Submitted: 17 Jan 2026, 3:15 PM</span>
+                            </div>
+                            <div class="report-actions">
+                                <button class="action-btn view">View</button>
+                                <button class="action-btn download">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // File upload functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-upload');
+            const uploadBtn = document.querySelector('.upload-btn');
+            const uploadBox = document.querySelector('.upload-box');
+            const uploadedFiles = document.getElementById('uploaded-files');
+            
+            uploadBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            uploadBox.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function(e) {
+                handleFiles(e.target.files);
+            });
+            
+            // Drag and drop
+            uploadBox.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadBox.classList.add('drag-over');
+            });
+            
+            uploadBox.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadBox.classList.remove('drag-over');
+            });
+            
+            uploadBox.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadBox.classList.remove('drag-over');
+                handleFiles(e.dataTransfer.files);
+            });
+            
+            function handleFiles(files) {
+                for (let file of files) {
+                    if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+                        addUploadedFile(file);
+                    }
+                }
+            }
+            
+            function addUploadedFile(file) {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'uploaded-file-item';
+                
+                const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                const isImage = file.type.startsWith('image/');
+                
+                fileItem.innerHTML = `
+                    <div class="file-preview">
+                        ${isImage ? 
+                            `<img src="${URL.createObjectURL(file)}" alt="${file.name}" class="file-image">` :
+                            `<div class="file-icon">📄</div>`
+                        }
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${fileSize} MB</div>
+                    </div>
+                    <button class="remove-file" onclick="this.parentElement.remove()">×</button>
+                `;
+                
+                uploadedFiles.appendChild(fileItem);
+            }
+        });
+    </script>
+</body>
+</html>

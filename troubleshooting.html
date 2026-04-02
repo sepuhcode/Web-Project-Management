@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting - Tower Bersama Indonesia Group - Bali - SIS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>SIS Smart Integrator Solution</h1>
+                <p>www.sisolusi.com</p>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="all_projects.html" class="active">Active Projects</a>
+                <a href="#">Completed Project</a>
+                <a href="#">Files</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="all_projects.html">Active Projects</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="project_details.html">Tower Bersama Indonesia Group - Bali</a>
+            <span class="breadcrumb-separator">></span>
+            <span class="breadcrumb-current">Troubleshooting</span>
+        </nav>
+
+        <!-- Tab Navigation -->
+        <section class="tab-navigation">
+            <div class="tabs">
+                <a href="project_details.html" class="tab-btn">Overview</a>
+                <a href="installation.html" class="tab-btn">Installation</a>
+                <a href="programming.html" class="tab-btn">Programming</a>
+                <a href="troubleshooting.html" class="tab-btn active">Troubleshooting</a>
+                <a href="report_progress.html" class="tab-btn">Report Progress</a>
+            </div>
+        </section>
+
+        <!-- Troubleshooting Content -->
+        <section class="tab-content">
+            <div class="tab-pane active">
+                <div class="page-header">
+                    <h2>Troubleshooting Issues</h2>
+                    <p>System issues and resolution tracking</p>
+                </div>
+
+                <!-- Troubleshooting Table -->
+                <div class="table-container">
+                    <table class="troubleshooting-table">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>ISSUE DESCRIPTION</th>
+                                <th>AREA</th>
+                                <th>PRIORITY</th>
+                                <th>STATUS</th>
+                                <th>REPORTED DATE</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Access Control System Not Responding</td>
+                                <td>Main Entrance</td>
+                                <td><span class="priority-badge high">High</span></td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>15 Jan 2026</td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>CCTV Camera Connection Lost</td>
+                                <td>Building A</td>
+                                <td><span class="priority-badge medium">Medium</span></td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>10 Jan 2026</td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Smart Lighting Flickering Issue</td>
+                                <td>Office Area</td>
+                                <td><span class="priority-badge low">Low</span></td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>20 Jan 2026</td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Network Connectivity Issues</td>
+                                <td>Server Room</td>
+                                <td><span class="priority-badge high">High</span></td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>18 Jan 2026</td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Issue Summary -->
+                <div class="progress-summary">
+                    <h3>Issue Resolution Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="summary-number">1</div>
+                            <div class="summary-label">Resolved</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">2</div>
+                            <div class="summary-label">In Progress</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">1</div>
+                            <div class="summary-label">Pending</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">25%</div>
+                            <div class="summary-label">Resolution Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report New Issue -->
+                <div class="add-task-section">
+                    <button class="add-task-btn">+ Report New Issue</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

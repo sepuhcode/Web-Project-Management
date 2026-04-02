@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation - Tower Bersama Indonesia Group - Bali - SIS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>SIS Smart Integrator Solution</h1>
+                <p>www.sisolusi.com</p>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="all_projects.html" class="active">Active Projects</a>
+                <a href="#">Completed Project</a>
+                <a href="#">Files</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="all_projects.html">Active Projects</a>
+            <span class="breadcrumb-separator">></span>
+            <a href="project_details.html">Tower Bersama Indonesia Group - Bali</a>
+            <span class="breadcrumb-separator">></span>
+            <span class="breadcrumb-current">Installation</span>
+        </nav>
+
+        <!-- Tab Navigation -->
+        <section class="tab-navigation">
+            <div class="tabs">
+                <a href="project_details.html" class="tab-btn">Overview</a>
+                <a href="installation.html" class="tab-btn active">Installation</a>
+                <a href="programming.html" class="tab-btn">Programming</a>
+                <a href="troubleshooting.html" class="tab-btn">Troubleshooting</a>
+                <a href="report_progress.html" class="tab-btn">Report Progress</a>
+            </div>
+        </section>
+
+        <!-- Installation Content -->
+        <section class="tab-content">
+            <div class="tab-pane active">
+                <div class="page-header">
+                    <h2>Installation Tasks</h2>
+                    <p>Detailed installation work items and progress tracking</p>
+                </div>
+
+                <!-- Installation Table -->
+                <div class="table-container">
+                    <table class="installation-table">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>LIST PEKERJAAN</th>
+                                <th>AREA</th>
+                                <th>BOBOT</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Pulling Belden cat6 cable from IT Server to Credenza</td>
+                                <td>BOC</td>
+                                <td>100%</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Pulling Belden cat6 cable from IT Server to Credenza</td>
+                                <td>BOC</td>
+                                <td>50%</td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Pulling Belden cat6 cable from IT Server to Credenza</td>
+                                <td>BOC</td>
+                                <td>50%</td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Pulling Belden cat6 cable from IT Server to Credenza</td>
+                                <td>BOC</td>
+                                <td>50%</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>
+                                    <button class="action-btn view">View</button>
+                                    <button class="action-btn edit">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Progress Summary -->
+                <div class="progress-summary">
+                    <h3>Installation Progress Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="summary-number">1</div>
+                            <div class="summary-label">Completed</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">2</div>
+                            <div class="summary-label">In Progress</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">1</div>
+                            <div class="summary-label">Pending</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-number">62.5%</div>
+                            <div class="summary-label">Overall Progress</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add New Task -->
+                <div class="add-task-section">
+                    <button class="add-task-btn">+ Add New Installation Task</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
