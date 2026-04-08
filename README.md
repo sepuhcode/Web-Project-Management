@@ -3,6 +3,7 @@
 ## Deskripsi
 
 SIS Dashboard adalah sistem manajemen proyek berbasis PHP native yang dikonversi dari HTML statis. Sistem ini memungkinkan pengelolaan proyek, tugas, isu, dan pelaporan tanpa memerlukan autentikasi atau login.
+Untuk akses local buka di localhost/sis-dashboard
 
 ## Fitur
 
