@@ -24,16 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = sanitize($conn, $_POST['task_name']);
     $description = $_POST['description'];
     $area = sanitize($conn, $_POST['area']);
+    $priority = sanitize($conn, $_POST['priority'] ?? 'low');
     $status = sanitize($conn, $_POST['status'] ?? 'pending');
     $progress = (int)($_POST['progress'] ?? 0);
     $start_date = sanitize($conn, $_POST['start_date']);
     $end_date = sanitize($conn, $_POST['end_date']);
 
-    $query = "INSERT INTO tasks (project_id, title, description, area, type, status, progress, start_date, end_date) 
-              VALUES (?, ?, ?, ?, 'programming', ?, ?, ?, ?)";
+    $query = "INSERT INTO tasks (project_id, title, description, area, type, status, progress, start_date, end_date, priority) 
+              VALUES (?, ?, ?, ?, 'programming', ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("issssiss", $project_id, $title, $description, $area, $status, $progress, $start_date, $end_date);
+    $stmt->bind_param("issssisss", $project_id, $title, $description, $area, $status, $progress, $start_date, $end_date, $priority);
 
     if ($stmt->execute()) {
         header("Location: programming.php?project_id=$project_id");
@@ -140,9 +141,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <textarea name="description" rows="4"></textarea>
                     </div>
                     <div class="form-actions" style="margin-top: 2rem;">
-                        <button type="submit" class="btn-primary">Add Task</button>
-                        <button type="button" class="btn-secondary"
-                            style="margin-left: 1rem;"
+                        <button type="submit" class="btn btn-primary">Add Task</button>
+                        <button type="button" class="btn btn-secondary"
+                            
                             onclick="window.location.href='programming.php?project_id=<?= $project['id']; ?>'">
                             Cancel
                         </button>
@@ -151,6 +152,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
     </main>
+
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
 
     <script>
         document.querySelector('input[name="start_date"]').valueAsDate = new Date();

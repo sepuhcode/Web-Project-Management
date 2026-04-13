@@ -155,7 +155,9 @@ $notes = $stmt->get_result();
                     <span class="task-id">Task #<?= str_pad($issue['id'], 3, '0', STR_PAD_LEFT); ?></span>
                 </div>
                 <div class="task-status">
-                    <?= getStatusBadge($issue['status']); ?>
+                    <span class="status-badge <?= $issue['status']; ?>">
+                        <?= ucfirst($issue['status']); ?>
+                    </span>
                 </div>
             </div>
 
@@ -273,7 +275,7 @@ $notes = $stmt->get_result();
                         <form method="POST">
                             <textarea name="author" placeholder="Enter Name..." required></textarea>
                             <textarea name="note_content" placeholder="Add a note..." required></textarea>
-                            <button type="submit" name="add_note" class="btn-primary">
+                            <button type="submit" name="add_note" class=" btn btn-primary">
                                 Add Note
                             </button>
                         </form>
@@ -283,15 +285,15 @@ $notes = $stmt->get_result();
 
             <!-- Action Buttons -->
             <div class="task-actions">
-                <a href="troubleshooting_edit.php?id=<?= $issue['id']; ?>" class="btn-primary">Edit Task</a>
-                <a href="troubleshooting.php?project_id=<?= $issue['project_id']; ?>" class="btn-secondary">Back to List</a>
-                <a href="?id=<?= $issue['id']; ?>&delete_task=true" 
-                   class="action-btn delete" 
-                   onclick="return confirm('Are you sure you want to delete this troubleshooting task? This action cannot be undone and will delete all related notes and attachments.');">
-                    DELETE TASK
-                </a>
+                <a href="troubleshooting_edit.php?id=<?= $issue['id']; ?>" class="btn btn-primary">Edit Task</a>
+                <a href="troubleshooting.php?project_id=<?= $issue['project_id']; ?>" class="btn btn-secondary">Back to List</a>
+                
             </div>
         </section>
     </main>
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
 </body>
 </html>

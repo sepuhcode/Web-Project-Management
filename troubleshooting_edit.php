@@ -156,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edit Troubleshooting</title>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="upload-enhanced.css">
@@ -538,8 +539,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="form-group">
                         <label>Reported Date</label>
-                        <input type="datetime-local" name="reported_date"
-                               value="<?= date('Y-m-d\TH:i', strtotime($issue['reported_date'])); ?>">
+                        <input type="date" name="reported_date"
+                               value="<?= date('Y-m-d', strtotime($issue['reported_date'])); ?>">
                     </div>
 
                     <div class="form-group full-width">
@@ -658,11 +659,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <!-- ACTION -->
                     <div class="form-actions">
-                        <button type="submit" class="btn-primary">Save Edit</button>
+                        <button type="submit" class="btn btn-primary">Save Edit</button>
 
-                        <button type="button" class="btn-secondary"
+                        <button type="button" class="btn btn-secondary"
                             onclick="window.location.href='troubleshooting.php?project_id=<?= $issue['project_id']; ?>'">
                             Cancel
+                        </button>
+                        <button class="btn btn-danger" onclick="confirmDelete(<?= $issue['id']; ?>)">
+                            Delete Task
                         </button>
                     </div>
                 </div>
@@ -680,7 +684,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- 🔥 FOOTER -->
 <footer class="footer">
-    <p>© <?= date('Y'); ?> SIS Smart Integrator Solution</p>
+    <p>© <?= date('Y'); ?> Project Team Report</p>
 </footer>
 
 <!-- 🔥 JAVASCRIPT -->

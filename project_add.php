@@ -145,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 
 <div class="form-actions">
-    <button type="submit" class="btn-primary">Create Project</button>
-    <button type="button" class="btn-secondary" onclick="window.location.href='all_projects.php'">Cancel</button>
+    <button type="submit" class="btn btn-primary">Create Project</button>
+    <button type="button" class="btn btn-secondary" onclick="window.location.href='all_projects.php'">Cancel</button>
 </div>
 
 </form>
@@ -154,6 +154,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </section>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
+
+<script>
+    document.querySelector('input[name="end_date"]').addEventListener('change', function() {
+        const start = document.querySelector('input[name="start_date"]').value;
+        if (start && this.value < start) {
+            alert('Finish date tidak boleh lebih kecil dari start date');
+            this.value = '';
+        }
+    });
+</script>
 
 </body>
 </html>

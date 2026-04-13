@@ -100,6 +100,7 @@ $files = $stmt->get_result();
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edit Report</title>
 <link rel="stylesheet" href="styles.css">
 
@@ -420,8 +421,8 @@ X
 </div>
 
 <div class="form-actions">
-<button class="btn-primary">UPDATE</button>
-<a href="report_progress.php?project_id=<?= $report['project_id']; ?>" class="btn-secondary">BACK</a>
+<button class="btn btn-primary">UPDATE</button>
+<a href="report_progress.php?project_id=<?= $report['project_id']; ?>" class="btn btn-secondary">BACK</a>
 </div>
 
 </form>
@@ -429,6 +430,11 @@ X
 </div>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
 
 <!-- ===== MODAL ===== -->
 <div id="imgModal" class="img-modal">

@@ -62,6 +62,7 @@ $files = $stmt->get_result();
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Documentation</title>
 <link rel="stylesheet" href="styles.css">
 
@@ -152,7 +153,7 @@ $files = $stmt->get_result();
         </section>
 
 <!-- ===== TABS ===== -->
-<section class="tab-navigation">
+<section class="table-container">
     <div class="tabs">
         <a href="project_details.php?id=<?= $project_id ?>" class="tab-btn">Overview</a>
         <a href="installation.php?project_id=<?= $project_id ?>" class="tab-btn">Installation</a>
@@ -216,6 +217,11 @@ $ext = strtolower(pathinfo($f['file_name'], PATHINFO_EXTENSION));
 </div>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
 
 <!-- ===== MODAL ===== -->
 <div id="imgModal" class="img-modal">

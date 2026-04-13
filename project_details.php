@@ -71,6 +71,21 @@ if (!$project) {
     <title><?= htmlspecialchars($project['name']); ?> - SIS Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
+<!-- 🔥 FIX RESPONSIVE -->
+<style>
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 <body>
 
     <header class="navbar">
@@ -90,187 +105,197 @@ if (!$project) {
 
 <main class="dashboard">
 
-<!-- BREADCRUMB -->
-<nav class="breadcrumb">
-    <a href="index.php">Home</a>
-    <span class="breadcrumb-separator">></span>
-    <a href="all_projects.php" class="active">Active Projects</a>
-    <span class="breadcrumb-separator">></span>
-    <span class="breadcrumb-current"><?= htmlspecialchars($project['name']); ?></span>
-</nav>
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="index.php">Home</a>
+        <span class="breadcrumb-separator">></span>
+        <a href="all_projects.php" class="active">Active Projects</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-current"><?= htmlspecialchars($project['name']); ?></span>
+    </nav>
 
-<!-- HEADER -->
-<section class="project-header-section">
-    <div class="project-title">
-        <h1><?= htmlspecialchars($project['name']); ?></h1>
-        <span class="project-status-badge <?= $project['status']; ?>">
-            <?= ucfirst($project['status']); ?>
-        </span>
-    </div>
-
-    <div class="project-meta">
-        <div class="meta-item">
-            <span class="meta-label">Start Date:</span>
-            <span class="meta-value"><?= formatDate($project['start_date']); ?></span>
+    <!-- HEADER -->
+    <section class="project-header-section">
+        <div class="project-title">
+            <h1><?= htmlspecialchars($project['name']); ?></h1>
+            <span class="project-status-badge <?= $project['status']; ?>">
+                <?= ucfirst($project['status']); ?>
+            </span>
         </div>
 
-        <div class="meta-item">
-            <span class="meta-label">End Date:</span>
-            <span class="meta-value"><?= formatDate($project['end_date']); ?></span>
-        </div>
+        <div class="project-meta">
+            <div class="meta-item">
+                <span class="meta-label">Start Date:</span>
+                <span class="meta-value"><?= formatDate($project['start_date']); ?></span>
+            </div>
 
-        <div class="meta-item">
-            <span class="meta-label">PIC:</span>
-            <span class="meta-value"><?= htmlspecialchars($project['pic']); ?></span>
+            <div class="meta-item">
+                <span class="meta-label">End Date:</span>
+                <span class="meta-value"><?= formatDate($project['end_date']); ?></span>
+            </div>
+
+            <div class="meta-item">
+                <span class="meta-label">PIC:</span>
+                <span class="meta-value"><?= htmlspecialchars($project['pic']); ?></span>
+            </div>
+            <!-- PROGRESS -->
+            <div class="meta-item">
+                <div class="progress-info">
+                    <span class="meta-label">Progress:</span>
+                    <span class="meta-label" style="visibility:hidden;">..</span>
+                    <span class="progress-percent"> <?= $project['progress']; ?>%</span>
+                </div>
+
+                <div class="progress-bar">
+                    <?php
+                    $color = 'red';
+                    if ($project['progress'] >= 80) $color = 'green';
+                    elseif ($project['progress'] >= 50) $color = 'orange';
+                    elseif ($project['progress'] >= 30) $color = 'blue';
+                    ?>
+                    <div class="progress-fill <?= $color; ?>" style="width: <?= $project['progress']; ?>%"></div>
+                </div>
+            </div>
         </div>
+        
+    </section>
+
+    <!-- TAB NAVIGATION -->
+    <section class="table-container">
+        <div class="tabs">
+            <a href="#" class="tab-btn active">Overview</a>
+            <a href="installation.php?project_id=<?= $project['id']; ?>" class="tab-btn">Installation</a>
+            <a href="programming.php?project_id=<?= $project['id']; ?>" class="tab-btn">Programming</a>
+            <a href="troubleshooting.php?project_id=<?= $project['id']; ?>" class="tab-btn">Troubleshooting</a>
+            <a href="report_progress.php?project_id=<?= $project['id']; ?>" class="tab-btn">Report Progress</a>
+            <a href="documentation.php?project_id=<?= $project['id']; ?>" class="tab-btn">Documentation</a>
+        </div>
+    </section>
+
+    <section class="tab-content">
+
+        <div class="content-grid">
+
         <!-- PROGRESS -->
-        <div class="meta-item">
-            <div class="progress-info">
-                <span class="meta-label">Progress:</span>
-                <span class="meta-label" style="visibility:hidden;">..</span>
-                <span class="progress-percent"> <?= $project['progress']; ?>%</span>
-            </div>
+        <div class="progress-overview">
+            <h2>Progress Overview</h2>
 
-            <div class="progress-bar">
+            <div class="progress-stages">
+
                 <?php
-                $color = 'red';
-                if ($project['progress'] >= 80) $color = 'green';
-                elseif ($project['progress'] >= 50) $color = 'orange';
-                elseif ($project['progress'] >= 30) $color = 'blue';
+                $stages = [
+                    ['Survey', 100],
+                    ['Installation', 85],
+                    ['Programming', 10],
+                    ['Testing', 0],
+                    ['Training', 0],
+                ];
+
+                foreach ($stages as $stage):
+                    $color = 'gray';
+                    if ($stage[1] >= 80) $color = 'green';
+                    elseif ($stage[1] >= 50) $color = 'orange';
+                    elseif ($stage[1] > 0) $color = 'red';
                 ?>
-                <div class="progress-fill <?= $color; ?>" style="width: <?= $project['progress']; ?>%"></div>
-            </div>
-        </div>
-    </div>
-    
-</section>
 
-<!-- TAB NAVIGATION -->
-<section class="tab-navigation">
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="overview" >Overview</button>
-        <a href="installation.php?project_id=<?= $project['id']; ?>" class="tab-btn">Installation</a>
-        <a href="programming.php?project_id=<?= $project['id']; ?>" class="tab-btn">Programming</a>
-        <a href="troubleshooting.php?project_id=<?= $project['id']; ?>" class="tab-btn">Troubleshooting</a>
-        <a href="report_progress.php?project_id=<?= $project['id']; ?>" class="tab-btn">Report Progress</a>
-        <a href="documentation.php?project_id=<?= $project['id']; ?>" class="tab-btn">Documentation</a>
-    </div>
-</section>
+                <div class="progress-stage">
+                    <div class="stage-header">
+                        <span class="stage-name"><?= $stage[0]; ?></span>
+                        <span class="stage-percentage"><?= $stage[1]; ?>%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill <?= $color; ?>" style="width: <?= $stage[1]; ?>%"></div>
+                    </div>
+                </div>
 
-<!-- TAB CONTENT -->
-<section class="tab-content">
+                <?php endforeach; ?>
 
-<div class="tab-pane active" id="overview">
-<div class="content-grid">
-
-<!-- PROGRESS -->
-<div class="progress-overview">
-    <h2>Progress Overview</h2>
-
-    <div class="progress-stages">
-
-        <?php
-        $stages = [
-            ['Survey', 100],
-            ['Installation', 85],
-            ['Programming', 10],
-            ['Testing', 0],
-            ['Training', 0],
-        ];
-
-        foreach ($stages as $stage):
-            $color = 'gray';
-            if ($stage[1] >= 80) $color = 'green';
-            elseif ($stage[1] >= 50) $color = 'orange';
-            elseif ($stage[1] > 0) $color = 'red';
-        ?>
-
-        <div class="progress-stage">
-            <div class="stage-header">
-                <span class="stage-name"><?= $stage[0]; ?></span>
-                <span class="stage-percentage"><?= $stage[1]; ?>%</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill <?= $color; ?>" style="width: <?= $stage[1]; ?>%"></div>
             </div>
         </div>
 
-        <?php endforeach; ?>
 
-    </div>
-</div>
+        <!-- DOCUMENTATION -->
+        <div class="documentation">
 
+            <!-- ===== DOCUMENTATION ===== -->
+            <div class="documentation">
 
-<!-- DOCUMENTATION -->
-<div class="documentation">
+                <h2>Documentation</h2>
 
-<!-- ===== MODAL ===== -->
-<div id="imgModal" class="img-modal">
+                <div class="documentation-grid">
 
-<span class="close" onclick="closeModal()">&times;</span>
+                    <?php while($d = $docs->fetch_assoc()):
+                    $ext = strtolower(pathinfo($d['file_name'], PATHINFO_EXTENSION));
+                    ?>
 
-<a id="downloadBtn" class="download-btn-modal" download>Download</a>
+                    <div class="doc-item">
 
-<img id="modalImg" class="modal-content">
+                        <?php if(in_array($ext,['jpg','jpeg','png','gif'])): ?>
 
-<iframe id="pdfViewer" style="display:none;"></iframe>
+                            <img src="<?= $d['file_path']; ?>"
+                                onclick="openImage('<?= $d['file_path']; ?>')">
 
-</div>
+                        <?php elseif($ext == 'pdf'): ?>
 
-    <h2>Documentation</h2>
+                            <div class="pdf-preview"
+                                onclick="openPDF('<?= $d['file_path']; ?>')">
+                                📄 PDF
+                            </div>
 
-    <div class="documentation-grid">
-    
+                        <?php endif; ?>
 
-        <?php while($d = $docs->fetch_assoc()): 
-        $ext = strtolower(pathinfo($d['file_name'], PATHINFO_EXTENSION));
-        ?>
+                        <div class="file-name">
+                            <?= htmlspecialchars($d['file_name']); ?>
+                        </div>
 
-            <div class="doc-item">
+                        <a href="<?= $d['file_path']; ?>"
+                        class="download-btn-small"
+                        download>
+                        Download
+                        </a>
 
-                <?php if(in_array($ext,['jpg','jpeg','png','gif'])): ?>
+                    </div>
 
-                <img src="<?= $d['file_path']; ?>" onclick="openImage('<?= $d['file_path']; ?>')">
+                    <?php endwhile; ?>
 
-                <?php elseif($ext=='pdf'): ?>
-
-                <div class="pdf-preview" onclick="openPDF('<?= $d['file_path']; ?>')">
-                📄 PDF
                 </div>
 
-                <?php endif; ?>
-
-                <div class="file-name">
-                    <?= htmlspecialchars($d['file_name']); ?>
+                <div class="doc-footer">
+                    <a href="documentation.php?project_id=<?= $project_id ?>"
+                    class="btn btn-primary">
+                    VIEW ALL DOCUMENTATION >
+                    </a>
                 </div>
-
-                <button type="button" class="delete-btn" onclick="deleteFile(<?= $d['id']; ?>)">
-                    X
-                </button>
-
-                <a class="download-btn-small" href="<?= $d['file_path']; ?>" download >
-                Download
-                </a>
 
             </div>
 
-        <?php endwhile; ?>
-      
-    </div>                                                                       
-    <div class="doc-footer">
-        <a href="documentation.php?project_id=<?= $project_id ?>" class="btn-primary" >
-            VIEW ALL DOCUMENTATION >
-        </a>
+        </div>
+
+        <!-- ===== MODAL ===== -->
+        <div id="imgModal" class="img-modal">
+
+            <span class="close" onclick="closeModal()">&times;</span>
+
+            <a id="downloadBtn" class="download-btn-modal" download>Download</a>
+
+            <img id="modalImg" class="modal-content">
+
+            <iframe id="pdfViewer" style="display:none;"></iframe>
+
+        </div>
+        </div>
+
     </div>
-    
-</div>
+    </div>
 
-</div>
-</div>
-
-</section>
+    </section>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -334,6 +359,7 @@ window.onclick = function(e){
     }
 }
 </script>
+
 
 </body>
 </html>

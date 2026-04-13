@@ -38,14 +38,14 @@ $schedule_result = $conn->query($schedule_query);
     <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
-    <header class="navbar">
+     <header class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <h1>Project Team Report</h1>
             </div>
             <nav class="nav-links">
                 <a href="index.php" class="active">Home</a>
-                <a href="all_projects.php">Active Projects</a>
+                <a href="all_projects.php" >Active Projects</a>
                 <a href="all_projects.php?status=completed">Completed Project</a>
                 <a href="schedule.php">Schedule</a>
                 <a href="troubleshooting.php">Issue</a>
@@ -158,5 +158,11 @@ $schedule_result = $conn->query($schedule_query);
             </div>
         </section>
     </main>
+    
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
+
 </body>
 </html>

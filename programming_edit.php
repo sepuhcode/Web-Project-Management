@@ -148,17 +148,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-actions" style="margin-top: 2rem;">
-                        <button type="submit" class="btn-primary">Update Task</button>
-                        <button type="button" class="btn-secondary"
-                            style="margin-left: 1rem;"
+                        <button type="submit" class="btn btn-primary">Save Edit</button>
+                        <button type="button" class="btn btn-secondary"
                             onclick="window.location.href='programming.php?project_id=<?= $project_id; ?>'">
                             Cancel
+                        </button>
+                        <button class="btn btn-danger" onclick="confirmDelete(<?= $task['id']; ?>)">
+                            Delete Task
                         </button>
                     </div>
                 </form>
             </div>
         </section>
     </main>
+
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
 
     <script>
         document.querySelector('input[name="end_date"]').addEventListener('change', function() {

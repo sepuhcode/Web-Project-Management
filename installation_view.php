@@ -46,24 +46,6 @@ $days = ($start && $end) ? ($end - $start) / 86400 : 0;
 </head>
 
 <body>
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <h1>SIS Smart Integrator Solution</h1>
-                <p>www.sisolusi.com</p>
-            </div>
-            <nav class="nav-links">
-                <a href="index.php">Home</a>
-                <a href="all_projects.php">Active Projects</a>
-                <a href="#">Completed Project</a>
-                <a href="schedule.php">Schedule</a>
-                <a href="troubleshooting.php">Issue</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="dashboard">
-        <!-- BREADCRUMB -->
         <header class="navbar">
             <div class="nav-container">
                 <div class="logo">
@@ -79,6 +61,8 @@ $days = ($start && $end) ? ($end - $start) / 86400 : 0;
             </div>
         </header>
 
+    <main class="dashboard">
+        <!-- BREADCRUMB -->
         <section class="task-detail-section">
             <div class="task-header">
                 <div class="task-title">
@@ -179,16 +163,19 @@ $days = ($start && $end) ? ($end - $start) / 86400 : 0;
 
             <!-- ACTION -->
             <div class="task-actions">
-                <a href="installation_edit.php?id=<?= $task['id']; ?>" class="btn-primary">Edit Task</a>
-                <a href="installation.php?project_id=<?= $task['project_id']; ?>" class="btn-secondary">
+                <a href="installation_edit.php?id=<?= $task['id']; ?>" class="btn btn-primary">Edit Task</a>
+                <a href="installation.php?project_id=<?= $task['project_id']; ?>" class="btn btn-secondary">
                     Back to List
                 </a>
-                <button class="action-btn delete" onclick="confirmDelete(<?= $task['id']; ?>)">
-                    DELETE TASK
-                </button>
+                
             </div>
         </section>
     </main>
+
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
 
     <script>
         function confirmDelete(id) {

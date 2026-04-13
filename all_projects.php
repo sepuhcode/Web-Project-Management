@@ -187,8 +187,8 @@ $status = $_GET['status'] ?? '';
 
     <!-- ACTION -->
     <div class="project-actions">
-        <a href="project_details.php?id=<?= $project['id']; ?>" class="btn-primary">View Details</a>
-        <a href="project_edit.php?id=<?= $project['id']; ?>" class="btn-secondary">Edit</a>
+        <a href="project_details.php?id=<?= $project['id']; ?>" class="btn btn-primary">View Details</a>
+        <a href="project_edit.php?id=<?= $project['id']; ?>" class="btn btn-secondary">Edit</a>
     </div>
 
 </div>
@@ -203,6 +203,11 @@ $status = $_GET['status'] ?? '';
 </section>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
 
 </body>
 </html>

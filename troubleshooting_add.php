@@ -93,162 +93,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Add Troubleshooting</title>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="upload-enhanced.css">
 <style>
-/* Enhanced Attachment Styles for Add Page */
-.form-section {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-}
 
-.form-section h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
 
-.form-section h3::before {
-    content: '📎';
-    font-size: 1.5rem;
-}
 
-.form-section h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #4b5563;
-    margin-bottom: 1rem;
-}
-
-/* Upload Section */
-.upload-section {
-    margin-top: 1.5rem;
-}
-
-/* Upload Area Override */
-.upload-area {
-    border: 2px dashed #d1d5db;
-    border-radius: 12px;
-    background: #f9fafb;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    width: 100%;
-}
-
-.upload-area:hover {
-    border-color: #3b82f6;
-    background: #eff6ff;
-}
-
-.upload-area.dragging {
-    border-color: #3b82f6;
-    background: #dbeafe;
-}
-
-.upload-content {
-    padding: 2.5rem 2rem;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-}
-
-.upload-icon {
-    margin-bottom: 1.5rem;
-    color: #6b7280;
-    transition: color 0.3s ease;
-}
-
-.upload-area:hover .upload-icon {
-    color: #3b82f6;
-}
-
-.upload-text h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 0.5rem;
-}
-
-.upload-text p {
-    color: #6b7280;
-    margin-bottom: 0.75rem;
-}
-
-.upload-hint {
-    font-size: 0.875rem;
-    color: #9ca3af;
-    display: block;
-    margin-top: 0.5rem;
-}
-
-.upload-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-}
-
-.upload-btn:hover {
-    background: #2563eb;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-}
-
-.file-preview {
-    border-top: 1px solid #e5e7eb;
-    background: white;
-    min-height: 200px;
-    max-height: 500px;
-    overflow-y: auto;
-    padding: 1.5rem;
-    width: 100%;
-}
-
-.no-files {
-    padding: 3rem 2rem;
-    text-align: center;
-    color: #9ca3af;
-    font-style: italic;
-    font-size: 1.1rem;
-    background: #f8fafc;
-    border: 2px dashed #e5e7eb;
-    border-radius: 8px;
-    margin: 1rem 0;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .upload-content {
-        padding: 2rem 1rem;
-    }
-    
-    .file-preview {
-        min-height: 150px;
-        max-height: 400px;
-        padding: 1rem;
-    }
-    
-    .no-files {
-        padding: 2rem 1rem;
-        font-size: 1rem;
-    }
-}
 </style>
 </head>
 
@@ -327,8 +179,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="form-group">
 <label>Reported Date *</label>
-<input type="datetime-local" name="reported_date" required>
+<input type="date" name="reported_date" required>
 </div>
+
 
 <div class="form-group full-width">
 <label>Description *</label>
@@ -397,8 +250,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <!-- ACTION BUTTON -->
     <div class="form-actions">
-        <button type="submit" class="btn-primary">Add Issue</button>
-        <button type="button" class="btn-secondary"
+        <button type="submit" class="btn btn-primary">Add Issue</button>
+        <button type="button" class="btn btn-secondary"
             onclick="window.location.href='troubleshooting.php?project_id=<?= $project_id ?>'">
             Cancel
         </button>
@@ -411,6 +264,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </section>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
 
 <script>
 const input = document.getElementById('file-input');

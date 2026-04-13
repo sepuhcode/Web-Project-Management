@@ -177,16 +177,18 @@ $days = ($start && $end) ? ($end - $start) / 86400 : 0;
 
             <!-- ACTION -->
             <div class="task-actions">
-                <a href="programming_edit.php?id=<?= $task['id']; ?>" class="btn-primary">Edit Task</a>
-                <a href="programming.php?project_id=<?= $task['project_id']; ?>" class="btn-secondary">
+                <a href="programming_edit.php?id=<?= $task['id']; ?>" class="btn btn-primary">Edit Task</a>
+                <a href="programming.php?project_id=<?= $task['project_id']; ?>" class="btn btn-secondary">
                     Back to List
                 </a>
-                <button class="action-btn delete" onclick="confirmDelete(<?= $task['id']; ?>)">
-                    DELETE TASK
-                </button>
             </div>
         </section>
     </main>
+
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
 
     <script>
         function confirmDelete(id) {

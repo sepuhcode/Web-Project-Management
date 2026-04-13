@@ -1,120 +1,193 @@
 <?php
 require_once 'config.php';
 
-if($_SERVER['REQUEST_METHOD']=='POST'){
-    $stmt=$conn->prepare("
-    INSERT INTO schedules(task_name,project_id,schedule_date,start_time,assigned_to,description,priority)
-    VALUES (?,?,?,?,?,?,?)");
+// ================= FUNCTION =================
+function resolveProjectId($conn, $project_id, $custom_name)
+{
+    if ($project_id !== 'custom') {
+        return $project_id;
+    }
 
-    $stmt->bind_param("sisssss",
-    $_POST['task_name'],
-    $_POST['project_id'],
-    $_POST['schedule_date'],
-    $_POST['start_time'],
-    $_POST['assigned_to'],
-    $_POST['description'],
-    $_POST['priority']
+    $custom_name = trim($custom_name);
+
+    if (empty($custom_name)) {
+        die("Custom project tidak boleh kosong");
+    }
+
+    // cek existing
+    $check = $conn->prepare("SELECT id FROM projects WHERE name = ?");
+    $check->bind_param("s", $custom_name);
+    $check->execute();
+    $result = $check->get_result();
+
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc()['id'];
+    }
+
+    // insert baru
+    $insert = $conn->prepare("INSERT INTO projects (name) VALUES (?)");
+    $insert->bind_param("s", $custom_name);
+    $insert->execute();
+
+    return $insert->insert_id;
+}
+
+// ================= INSERT =================
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $project_id = resolveProjectId(
+        $conn,
+        $_POST['project_id'],
+        $_POST['custom_project'] ?? ''
+    );
+
+    $stmt = $conn->prepare("
+        INSERT INTO schedules 
+        (task_name, project_id, schedule_date, start_time, assigned_to, description, priority)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    ");
+
+    $stmt->bind_param(
+        "sisssss",
+        $_POST['task_name'],
+        $project_id,
+        $_POST['schedule_date'],
+        $_POST['start_time'],
+        $_POST['assigned_to'],
+        $_POST['description'],
+        $_POST['priority']
     );
 
     $stmt->execute();
-    header("Location:schedule.php");
+
+    header("Location: schedule.php");
+    exit;
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Add Schedule</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Schedule</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
 <header class="navbar">
-<div class="nav-container">
-    <div class="logo">
-        <h1>Project Team Report</h1>
+    <div class="nav-container">
+        <div class="logo">
+            <h1>Project Team Report</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="index.php">Home</a>
+            <a href="all_projects.php">Active Projects</a>
+            <a href="all_projects.php?status=completed">Completed Projects</a>
+            <a href="schedule.php" class="active">Schedule</a>
+            <a href="troubleshooting.php">Issue</a>
+        </nav>
     </div>
-    <nav class="nav-links">
-        <a href="index.php">Home</a>
-        <a href="all_projects.php">Active Projects</a>
-        <a href="all_projects.php?status=completed" >Completed Projects</a>
-        <a href="schedule.php" class="active">Schedule</a>
-        <a href="troubleshooting.php" >Issue</a>
-    </nav>
-</div>
 </header>
 
 <main class="dashboard">
 
-<section class="edit-form">
-<div class="form-card">
+    <section class="edit-form">
+        <div class="form-card">
 
-<h2>Add New Schedule Item</h2>
+            <h2>Add New Schedule Item</h2>
 
-<form method="POST" class="task-form">
+            <form method="POST" class="project-form">
 
-<div class="form-grid">
+                <div class="form-grid">
 
-<div class="form-group">
-<label>Task Name</label>
-<input type="text" name="task_name" required>
-</div>
+                    <div class="form-group">
+                        <label>Task Name</label>
+                        <input type="text" name="task_name" required>
+                    </div>
 
-<div class="form-group">
-<label>Project</label>
-<select name="project_id" required>
-<?php
-$p=$conn->query("SELECT * FROM projects");
-while($pr=$p->fetch_assoc()){
-echo "<option value='{$pr['id']}'>{$pr['name']}</option>";
-}
-?>
-</select>
-</div>
+                    <div class="form-group">
+                        <label>Project</label>
 
-<div class="form-group">
-<label>Date</label>
-<input type="date" name="schedule_date" required>
-</div>
+                        <select name="project_id" id="projectSelect" onchange="toggleCustomProject()" required>
+                            <option value="">-- Select Project --</option>
 
-<div class="form-group">
-<label>Priority</label>
-<select name="priority">
-<option value="low">Low</option>
-<option value="medium">Medium</option>
-<option value="high">High</option>
-</select>
-</div>
+                            <?php
+                            $p = $conn->query("SELECT * FROM projects");
+                            while ($pr = $p->fetch_assoc()) {
+                                echo "<option value='{$pr['id']}'>{$pr['name']}</option>";
+                            }
+                            ?>
 
-<div class="form-group">
-<label>Assigned</label>
-<input type="text" name="assigned_to">
-</div>
+                            <option value="custom">+ Custom Project</option>
+                        </select>
+                    </div>
 
-<div class="form-group">
-<label>Time</label>
-<input type="time" name="start_time">
-</div>
+                    <div class="form-group" id="customProjectField" style="display: none;">
+                        <label>Custom Project Name</label>
+                        <input type="text" name="custom_project" placeholder="Enter project name">
+                    </div>
 
-<div class="form-group">
-<label>Description</label>
-<textarea name="description" rows="10" required></textarea>
-</div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="schedule_date" required>
+                    </div>
 
-</div>
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
 
-<div class="form-actions">
-<button class="btn-primary">Add Schedule</button>
-<a href="schedule.php" class="btn-secondary">Cancel</a>
-</div>
+                    <div class="form-group">
+                        <label>Tim Yang Bertugas</label>
+                        <input type="text" name="assigned_to">
+                    </div>
 
-</form>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" name="start_time">
+                    </div>
 
-</div>
-</section>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="description" rows="10" required></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary">Add Schedule</button>
+                    <a href="schedule.php" class="btn btn-secondary">Cancel</a>
+                </div>
+
+            </form>
+
+        </div>
+    </section>
 
 </main>
+
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
+
+<script>
+    function toggleCustomProject() {
+        const select = document.getElementById('projectSelect');
+        const customField = document.getElementById('customProjectField');
+
+        if (select.value === 'custom') {
+            customField.style.display = 'block';
+        } else {
+            customField.style.display = 'none';
+        }
+    }
+</script>
+
 </body>
 </html>

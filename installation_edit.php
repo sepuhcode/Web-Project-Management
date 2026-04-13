@@ -166,10 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <label>Status *</label>
                             <select name="status" required>
-                                <option value="">Select Status</option>
-                                <option value="pending">Pending</option>
-                                <option value="in_progress">In Progress</option>
-                                <option value="completed">Completed</option>
+                                <option value="pending" <?= $task['status']=='pending'?'selected':''; ?>>Pending</option>
+                                <option value="in-progress" <?= $task['status']=='in-progress'?'selected':''; ?>>In Progress</option>
+                                <option value="completed" <?= $task['status']=='completed'?'selected':''; ?>>Completed</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -212,8 +211,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn-primary">Edit Task</button>
-                        <button type="button" class="btn-secondary"
+                        <button type="submit" class="btn btn-primary">Save Edit</button>
+                        <button class="btn btn-danger" onclick="confirmDelete(<?= $task['id']; ?>)">
+                            Delete Task
+                        </button>
+                        <button type="button" class="btn btn-secondary"
                             onclick="window.location.href='installation.php?project_id=<?= $project['id']; ?>'">
                             Cancel
                         </button>
@@ -226,6 +228,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
     </main>
+
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
+
     <script>
         function confirmDelete(id) {
             if (confirm('Yakin mau delete task ini?')) {

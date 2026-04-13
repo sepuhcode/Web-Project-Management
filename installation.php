@@ -60,6 +60,7 @@ $overall = $count ? round($total_progress / $count, 1) : 0;
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Installation - <?= htmlspecialchars($project['name']); ?></title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -143,7 +144,7 @@ $overall = $count ? round($total_progress / $count, 1) : 0;
         </section>
 
         <!-- TAB -->
-        <section class="tab-navigation">
+        <section class="table-container">
             <div class="tabs">
                 <a href="project_details.php?id=<?= $project['id']; ?>" class="tab-btn">Overview</a>
                 <a href="#" class="tab-btn active">Installation</a>
@@ -265,5 +266,11 @@ $overall = $count ? round($total_progress / $count, 1) : 0;
             }
         </script>
     </main>
+
+    <!-- 🔥 FOOTER -->
+    <footer class="footer">
+        <p>© <?= date('Y'); ?> Project Team Report</p>
+    </footer>
+
 </body>
 </html>

@@ -128,6 +128,7 @@ $reports = $stmt->get_result();
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Report Progress</title>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -214,7 +215,7 @@ $reports = $stmt->get_result();
         </section>
 
 <!-- ================= TABS ================= -->
-<section class="tab-navigation">
+<section class="table-container">
 <div class="tabs">
 
 <a href="project_details.php?id=<?= $project_id ?>" class="tab-btn">Overview</a>
@@ -233,7 +234,7 @@ $reports = $stmt->get_result();
 </section>
 
 
-<section class="tab-content">
+<section class="table-container">
 <div class="tab-pane active">
 
 <div class="page-header">
@@ -306,7 +307,7 @@ Choose Files
 </div>
 
 <div class="form-actions" style="margin-bottom:40px;">
-<button type="submit" class="btn-primary">Submit Report</button>
+<button type="submit" class="btn btn-primary">Submit Report</button>
 </div>
 
 <!-- ===== RECENT REPORT ===== -->
@@ -358,6 +359,11 @@ Delete
 </section>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
 
 <script>
 function deleteReport(id){

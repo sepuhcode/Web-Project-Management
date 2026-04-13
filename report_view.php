@@ -32,6 +32,7 @@ $files = $stmt->get_result();
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View Report</title>
 <link rel="stylesheet" href="styles.css">
 
@@ -264,14 +265,28 @@ h3 {
 </div>
 
 <!-- BACK -->
-<a href="report_progress.php?project_id=<?= $report['project_id']; ?>" 
-class="btn-secondary back-btn">
-    Back
-</a>
+<div class="task-actions">
+
+    <a href="report_edit.php?id=<?= $report['id']; ?>" 
+       class="btn btn-primary">
+        Edit
+    </a>
+
+    <a href="report_progress.php?project_id=<?= $report['project_id']; ?>" 
+       class="btn btn-secondary">
+        Back
+    </a>
+
+</div>
 
 </section>
 
 </main>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
 
 <!-- MODAL -->
 <div id="imgModal" class="img-modal">
