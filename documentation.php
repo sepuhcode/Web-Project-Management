@@ -7,25 +7,31 @@ $project_id = $_GET['project_id'] ?? 0;
 if (isset($_GET['delete_file'])) {
     $file_id = (int)$_GET['delete_file'];
     
-    // Get file info before deletion
+    // Get file info before deletion (support both report and issue)
     $stmt = $conn->prepare("
-        SELECT a.file_path, r.project_id 
+        SELECT 
+            a.file_path, 
+            r.project_id as report_project_id,
+            i.project_id as issue_project_id
         FROM attachments a 
-        JOIN reports r ON a.related_id = r.id 
-        WHERE a.id = ? AND a.related_type = 'report'
+        LEFT JOIN reports r ON a.related_id = r.id AND a.related_type = 'report'
+        LEFT JOIN issues i ON a.related_id = i.id AND a.related_type = 'issue'
+        WHERE a.id = ? AND a.related_type IN ('report', 'issue')
     ");
     $stmt->bind_param("i", $file_id);
     $stmt->execute();
     $file_info = $stmt->get_result()->fetch_assoc();
     
-    if ($file_info && $file_info['project_id'] == $project_id) {
+    $file_project_id = $file_info['report_project_id'] ?: $file_info['issue_project_id'];
+    
+    if ($file_info && $file_project_id == $project_id) {
         // Delete physical file
         if (file_exists($file_info['file_path'])) {
             unlink($file_info['file_path']);
         }
         
         // Delete from database
-        $stmt = $conn->prepare("DELETE FROM attachments WHERE id = ? AND related_type = 'report'");
+        $stmt = $conn->prepare("DELETE FROM attachments WHERE id = ? AND related_type IN ('report', 'issue')");
         $stmt->bind_param("i", $file_id);
         $stmt->execute();
     }
@@ -46,14 +52,26 @@ if (!$project) {
 
 /* ===== GET FILES ===== */
 $stmt = $conn->prepare("
-SELECT a.*, r.report_date
+SELECT 
+    a.*,
+    CASE 
+        WHEN a.related_type = 'report' THEN r.report_date
+        WHEN a.related_type = 'issue' THEN i.reported_date
+        ELSE NULL
+    END as document_date,
+    CASE 
+        WHEN a.related_type = 'report' THEN 'Report'
+        WHEN a.related_type = 'issue' THEN 'Issue'
+        ELSE 'Document'
+    END as document_type
 FROM attachments a
-JOIN reports r ON a.related_id = r.id
-WHERE a.related_type='report'
-AND r.project_id=?
+LEFT JOIN reports r ON a.related_id = r.id AND a.related_type = 'report'
+LEFT JOIN issues i ON a.related_id = i.id AND a.related_type = 'issue'
+WHERE (a.related_type = 'report' AND r.project_id = ?)
+   OR (a.related_type = 'issue' AND i.project_id = ?)
 ORDER BY a.uploaded_at DESC
 ");
-$stmt->bind_param("i", $project_id);
+$stmt->bind_param("ii", $project_id, $project_id);
 $stmt->execute();
 $files = $stmt->get_result();
 ?>
@@ -167,43 +185,48 @@ $files = $stmt->get_result();
 <!-- ===== CONTENT ===== -->
 <div class="form-card">
 
-<h2>All Documentation</h2>
+    <h2>All Documentation</h2>
 
-<div class="doc-grid">
+    <div class="doc-grid">
 
-<?php while($f = $files->fetch_assoc()): 
-$ext = strtolower(pathinfo($f['file_name'], PATHINFO_EXTENSION));
-?>
+        <?php while($f = $files->fetch_assoc()): 
+        $ext = strtolower(pathinfo($f['file_name'], PATHINFO_EXTENSION));
+        ?>
 
-<div class="doc-item">
+        <div class="doc-item">
 
-<?php if(in_array($ext,['jpg','jpeg','png','gif'])): ?>
+            <?php if(in_array($ext,['jpg','jpeg','png','gif'])): ?>
 
-<img src="<?= $f['file_path']; ?>" onclick="openImage('<?= $f['file_path']; ?>')">
+                <img src="<?= $f['file_path']; ?>" onclick="openImage('<?= $f['file_path']; ?>')">
 
-<?php elseif($ext=='pdf'): ?>
+            <?php elseif($ext=='pdf'): ?>
 
-<div class="pdf-preview" onclick="openPDF('<?= $f['file_path']; ?>')">
-📄 PDF
-</div>
+                <div class="pdf-preview" onclick="openPDF('<?= $f['file_path']; ?>')">
+                    📄 PDF
+                </div>
 
-<?php endif; ?>
+            <?php endif; ?>
 
-<div class="file-name">
-<?= htmlspecialchars($f['file_name']); ?>
-</div>
+            <div class="file-name">
+                <?= htmlspecialchars($f['file_name']); ?>
+            </div>
 
-<button type="button" class="delete-btn" onclick="deleteFile(<?= $f['id']; ?>)">
-    X
-</button>
+            <div class="doc-type-badge <?= strtolower($f['document_type']); ?>">
+                <?= htmlspecialchars($f['document_type']); ?>
+            </div>
 
-<a href="<?= $f['file_path']; ?>" download class="download-btn-small">
-    Download
-</a>
+            <button type="button" class="delete-btn" onclick="deleteFile(<?= $f['id']; ?>)">
+                ×
+            </button>
 
-</div>
+            <a href="<?= $f['file_path']; ?>" download class="download-btn-small">
+                Download
+            </a>
 
-<?php endwhile; ?>
+        </div>
+
+        <?php endwhile; ?>
+    </div>
 
 </div>
 
@@ -211,35 +234,29 @@ $ext = strtolower(pathinfo($f['file_name'], PATHINFO_EXTENSION));
 
 <!-- ===== BACK (BAWAH) ===== -->
 <div style="margin-top:20px;">
-<a href="project_details.php?id=<?= $project_id ?>" class="btn-secondary">
-← Back
-</a>
+    <a href="project_details.php?id=<?= $project_id ?>" class="btn-secondary">
+        ← Back
+    </a>
 </div>
 
 </main>
+
+<!-- Image Modal -->
+<div id="imageModal" class="img-modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <a href="#" id="modalDownload" class="download-btn-modal" download>Download</a>
+</div>
 
 <!-- 🔥 FOOTER -->
 <footer class="footer">
     <p>© <?= date('Y'); ?> Project Team Report</p>
 </footer>
 
-<!-- ===== MODAL ===== -->
-<div id="imgModal" class="img-modal">
-
-<span class="close" onclick="closeModal()">&times;</span>
-
-<a id="downloadBtn" class="download-btn-modal" download>Download</a>
-
-<img id="modalImg" class="modal-content">
-
-<iframe id="pdfViewer" style="display:none;"></iframe>
-
-</div>
-
 <script>
 
 function openImage(src){
-    const modal = document.getElementById("imgModal");
+    const modal = document.getElementById("imageModal");
     modal.style.display = "flex";
 
     document.getElementById("modalImg").style.display = "block";

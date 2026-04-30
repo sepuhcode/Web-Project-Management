@@ -17,8 +17,8 @@ $issues_query = "SELECT COUNT(*) as count FROM issues";
 $issues_result = $conn->query($issues_query);
 $total_issues = $issues_result->fetch_assoc()['count'];
 
-// Get recent projects for progress overview
-$projects_query = "SELECT * FROM projects ORDER BY created_at DESC LIMIT 5";
+// Get recent projects for progress overview (progress > 0%, max 5 projects)
+$projects_query = "SELECT * FROM projects WHERE progress > 0 ORDER BY created_at DESC LIMIT 5";
 $projects_result = $conn->query($projects_query);
 
 // Get recent issues
@@ -97,7 +97,7 @@ $schedule_result = $conn->query($schedule_query);
             
             <div class="stat-card" onclick="window.location.href='project_add.php'" style="cursor: pointer;">
                 <span class="stat-number" style="color: #28a745;">+</span>
-                <span class="stat-label">Add Project</span>
+                <span class="stat-content">Add Project</span>
             </div>
         </section>
 

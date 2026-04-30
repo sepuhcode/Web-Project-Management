@@ -250,108 +250,112 @@ $reports = $stmt->get_result();
 
 <form method="POST" enctype="multipart/form-data" class="progress-form">
 
-<input type="hidden" name="project_id" value="<?= $project_id ?>">
+    <input type="hidden" name="project_id" value="<?= $project_id ?>">
 
-<div class="form-grid">
+    <div class="form-grid">
 
-<div class="form-group">
-<label>Report Date</label>
-<input type="date" name="report_date" required>
-</div>
+        <div class="form-group">
+            <label>Report Date</label>
+            <input type="date" name="report_date" required>
+        </div>
 
-<div class="form-group full-width">
-<label>Progress Summary</label>
-<textarea name="progress_summary" rows="4" required></textarea>
-</div>
+        <div class="form-group full-width">
+            <label>Progress Summary</label>
+            <textarea name="progress_summary" rows="4" required></textarea>
+        </div>
 
-</div>
+    </div>
 
-<!-- UPLOAD -->
-<div class="upload-section">
+    <!-- UPLOAD -->
+    <div class="upload-section">
 
-<h4>Documentation Upload</h4>
+        <h4>Documentation Upload</h4>
 
-<div class="upload-area" id="uploadArea">
+        <div class="upload-area" id="uploadArea">
 
-<input 
-    type="file" 
-    name="files[]" 
-    id="fileInput" 
-    multiple 
-    hidden
->
+            <input 
+                type="file" 
+                name="files[]" 
+                id="fileInput" 
+                multiple 
+                hidden
+            >
 
-<div class="upload-content" id="uploadTrigger">
+            <div class="upload-content" id="uploadTrigger">
 
-<div class="upload-icon">
-⬆️
-</div>
+                <div class="upload-icon">
+                    ⬆️
+                </div>
 
-<div class="upload-text">
-<h4>Drop files here or click to browse</h4>
-<p>Support for PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP, TXT, LOG</p>
-<span>Maximum file size: 10MB per file</span>
-</div>
+                <div class="upload-text">
+                    <h4>Drop files here or click to browse</h4>
+                    <p>Support for PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP, TXT, LOG</p>
+                    <span>Maximum file size: 10MB per file</span>
+                </div>
 
-<button type="button" class="upload-btn" id="chooseBtn">
-Choose Files
-</button>
+                <button type="button" class="upload-btn" id="chooseBtn">
+                    Choose Files
+                </button>
 
-</div>
+            </div>
 
 <div class="file-preview" id="filePreview">
-<div class="no-files">No files selected</div>
+    <div class="no-files">No files selected</div>
 </div>
 
 </div>
 </div>
 
 <div class="form-actions" style="margin-bottom:40px;">
-<button type="submit" class="btn btn-primary">Submit Report</button>
+    <button type="submit" class="btn btn-primary">Submit Report</button>
 </div>
 
-<!-- ===== RECENT REPORT ===== -->
-<div class="recent-reports">
-<h3>Recent Reports</h3>
 
-<div class="reports-list">
-
-<?php while($r = $reports->fetch_assoc()): ?>
-<div class="report-item">
-
-<div class="report-info">
-<h4><?= formatDate($r['report_date']); ?></h4>
-
-<p><?= nl2br(htmlspecialchars(substr($r['progress_summary'],0,120))); ?>...</p>
-
-<span class="report-date">
-Submitted: <?= formatDate($r['report_date']); ?>
-</span>
-</div>
-
-<div class="report-actions">
-
-<a href="report_view.php?id=<?= $r['id']; ?>" class="action-btn view">View</a>
-
-<a href="report_edit.php?id=<?= $r['id']; ?>" class="action-btn edit">
-Edit
-</a>
-
-<button class="action-btn delete"
-onclick="deleteReport(<?= $r['id']; ?>)">
-Delete
-</button>
-
-</div>
-
-</div>
-<?php endwhile; ?>
-
-</div>
-</div>
 
 </form>
 
+
+
+</div>
+
+<!-- ===== RECENT REPORT ===== -->
+<div class="recent-reports" style="margin-top:40px;">
+    <h3>Recent Reports</h3>
+
+    <div class="reports-list">
+
+        <?php while($r = $reports->fetch_assoc()): ?>
+        <div class="report-item">
+
+            <div class="report-info">
+                <h4><?= formatDate($r['report_date']); ?></h4>
+
+                <p><?= nl2br(htmlspecialchars(substr($r['progress_summary'],0,120))); ?>...</p>
+
+                <span class="report-date">
+                    Submitted: <?= formatDate($r['report_date']); ?>
+                </span>
+            </div>
+
+            <div class="report-actions">
+
+                <a href="report_view.php?id=<?= $r['id']; ?>" class="action-btn view">View</a>
+
+                <a href="report_edit.php?id=<?= $r['id']; ?>" class="action-btn edit">
+                    Edit
+                </a>
+
+                <button class="action-btn delete"
+                        onclick="deleteReport(<?= $r['id']; ?>)">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+        <?php endwhile; ?>
+
+</div>
 </div>
 </div>
 

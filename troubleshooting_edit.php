@@ -161,293 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="upload-enhanced.css">
 <style>
-/* Enhanced Attachment Styles */
-.form-section {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-}
 
-.form-section h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.form-section h3::before {
-    content: '📎';
-    font-size: 1.5rem;
-}
-
-.form-section h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #4b5563;
-    margin-bottom: 1rem;
-}
-
-/* Attachment List */
-.attachment-list {
-    margin-bottom: 2rem;
-}
-
-.attachment-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.25rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    margin-bottom: 0.75rem;
-    transition: all 0.2s ease;
-}
-
-.attachment-item:hover {
-    background: #f1f5f9;
-    border-color: #cbd5e1;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.attachment-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex: 1;
-}
-
-.attachment-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f3f4f6;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-}
-
-.attachment-details {
-    flex: 1;
-    min-width: 0;
-}
-
-.attachment-details strong {
-    display: block;
-    color: #374151;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    word-break: break-all;
-}
-
-.attachment-details small {
-    color: #6b7280;
-    font-size: 0.875rem;
-}
-
-.attachment-actions {
-    flex-shrink: 0;
-}
-
-.btn-view {
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    margin-left: 8px;
-    font-size: 13px;
-    background: #3b82f6;
-    }
-
-.btn-view:hover {
-    background: #2563eb;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
-}
-.btn-delete {
-    background: #ef4444;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    margin-left: 8px;
-    font-size: 13px;
-}
-
-.btn-delete:hover {
-    background: #dc2626;
-    transform: translateY(-1px);
-}
-
-/* No Attachments */
-.no-attachments {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: #f9fafb;
-    border: 2px dashed #d1d5db;
-    border-radius: 12px;
-    margin-bottom: 2rem;
-    color: #9ca3af;
-}
-
-.no-attachments svg {
-    margin-bottom: 1rem;
-    opacity: 0.5;
-}
-
-.no-attachments p {
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-/* Upload Section */
-.upload-section {
-    margin-top: 1.5rem;
-}
-
-.upload-section h4 {
-    margin-bottom: 1rem;
-}
-
-/* Upload Area Override */
-.upload-area {
-    border: 2px dashed #d1d5db;
-    border-radius: 12px;
-    background: #f9fafb;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    width: 100%;
-}
-
-.upload-area:hover {
-    border-color: #3b82f6;
-    background: #eff6ff;
-}
-
-.upload-area.dragging {
-    border-color: #3b82f6;
-    background: #dbeafe;
-}
-
-.upload-content {
-    padding: 2.5rem 2rem;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-}
-
-.upload-icon {
-    margin-bottom: 1.5rem;
-    color: #6b7280;
-    transition: color 0.3s ease;
-}
-
-.upload-area:hover .upload-icon {
-    color: #3b82f6;
-}
-
-.upload-text h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 0.5rem;
-}
-
-.upload-text p {
-    color: #6b7280;
-    margin-bottom: 0.75rem;
-}
-
-.upload-hint {
-    font-size: 0.875rem;
-    color: #9ca3af;
-    display: block;
-    margin-top: 0.5rem;
-}
-
-.upload-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-}
-
-.upload-btn:hover {
-    background: #2563eb;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-}
-
-.file-preview {
-    border-top: 1px solid #e5e7eb;
-    background: white;
-    min-height: 200px;
-    max-height: 500px;
-    overflow-y: auto;
-    padding: 1.5rem;
-    width: 100%;
-}
-
-.no-files {
-    padding: 3rem 2rem;
-    text-align: center;
-    color: #9ca3af;
-    font-style: italic;
-    font-size: 1.1rem;
-    background: #f8fafc;
-    border: 2px dashed #e5e7eb;
-    border-radius: 8px;
-    margin: 1rem 0;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .attachment-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .attachment-actions {
-        width: 100%;
-    }
-    
-    .btn-view {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .upload-content {
-        padding: 2rem 1rem;
-    }
-    
-    .file-preview {
-        min-height: 150px;
-        max-height: 400px;
-        padding: 1rem;
-    }
-    
-    .no-files {
-        padding: 2rem 1rem;
-        font-size: 1rem;
-    }
-}
 </style>
 </head>
 
@@ -574,51 +288,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
+                
                 <!-- ATTACHMENT -->
-                <div class="form-section">
+                <div class="info-card full-width">
                     <h3>Attachments</h3>
 
                     <!-- EXISTING FILES -->
                     <?php if($attachments->num_rows > 0): ?>
-                    <div class="attachment-list">
-                        <h4>Current Attachments:</h4>
-                        <?php 
-                        // Reset pointer to start
-                        $attachments->data_seek(0);
-                        while($file = $attachments->fetch_assoc()): 
+                    <h4>Current Attachments:</h4>
+                    <div class="doc-grid">
+                        <?php while($file = $attachments->fetch_assoc()): 
+                        $ext = strtolower(pathinfo($file['file_name'], PATHINFO_EXTENSION));
                         ?>
-                        <div class="attachment-item">
-                            <div class="attachment-info">
-                                <div class="attachment-icon">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#6b7280" stroke-width="2"/>
-                                        <path d="M14 2v6h6" stroke="#6b7280" stroke-width="2"/>
-                                        <path d="M8 13h8M8 17h6" stroke="#6b7280" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="attachment-details">
-                                    <strong><?= htmlspecialchars($file['file_name']); ?></strong>
-                                    <small><?= $file['file_size']; ?></small>
-                                </div>
-                            </div>
-                            <div class="attachment-actions">
-                                <!-- VIEW -->
-                                <a href="<?= htmlspecialchars($file['file_path']); ?>" 
-                                target="_blank" 
-                                class="btn-view">
-                                View
-                                </a>
-
-                                <!-- DELETE -->
-                                <a href="?id=<?= $issue_id ?>&delete_file=<?= $file['id']; ?>" 
-                                class="btn-delete"
-                                onclick="return confirm('Yakin mau hapus file ini?')">
-                                Delete
-                                </a>
-                            </div>
+                        
+                        <div class="doc-item">
+                        
+                        <?php if(in_array($ext,['jpg','jpeg','png','gif'])): ?>
+                        
+                        <img src="<?= $file['file_path']; ?>" onclick="openImage('<?= $file['file_path']; ?>')">
+                        
+                        <?php elseif($ext=='pdf'): ?>
+                        
+                        <div class="pdf-preview" onclick="openPDF('<?= $file['file_path']; ?>')">
+                        📄 PDF
                         </div>
+                        
+                        <?php else: ?>
+                        
+                        <div class="file-preview" onclick="window.open('<?= $file['file_path']; ?>', '_blank')">
+                        📄 <?= strtoupper($ext); ?>
+                        </div>
+                        
+                        <?php endif; ?>
+                        
+                        <div class="file-name">
+                        <?= htmlspecialchars($file['file_name']); ?>
+                        </div>
+                        
+                        <a href="<?= $file['file_path']; ?>" download class="download-btn-small">
+                        Download
+                        </a>
+
+                        <button type="button" class="delete-btn" onclick="confirmDelete(<?= $file['id']; ?>)">
+                        X
+                        </button>
+                        
+                        </div>
+                        
                         <?php endwhile; ?>
                     </div>
+                    
                     <?php else: ?>
                     <div class="no-attachments">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
@@ -638,7 +357,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             
                             <div class="upload-content" id="upload-trigger-edit">
                                 <div class="upload-icon">
-                ⬆️
+                                ⬆️
                                 </div>
                                 <div class="upload-text">
                                     <h4>Drop files here or click to browse</h4>
@@ -654,7 +373,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     Choose Files
                                 </button>
                             </div>
-                            <div class="file-preview" id="file-preview-edit"></div>
+                            <div class="" id="file-preview-edit"></div>
                         </div>
                     </div>
                     <!-- ACTION -->
@@ -849,6 +568,47 @@ function showNotification(message, type = 'info') {
 if (previewEdit) {
     renderEdit();
 }
+</script>
+
+<!-- Image Modal -->
+<div id="imageModal" class="img-modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <a href="#" id="modalDownload" class="download-btn-modal" download>Download</a>
+</div>
+
+<script>
+function openImage(src) {
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = src;
+    document.getElementById('modalDownload').href = src;
+}
+
+function openPDF(src) {
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = '';
+    document.getElementById('modalImage').innerHTML = '<iframe src="' + src + '" style="width:100%; height:100%; border:none;"></iframe>';
+    document.getElementById('modalDownload').href = src;
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+    document.getElementById('modalImage').src = '';
+    document.getElementById('modalImage').innerHTML = '';
+}
+
+function confirmDelete(fileId) {
+    if (confirm('Yakin mau hapus file ini?')) {
+        window.location.href = '?id=<?= $issue_id ?>&delete_file=' + fileId;
+    }
+}
+
+// Close modal on ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
 </script>
 
 </body>

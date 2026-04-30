@@ -15,6 +15,112 @@ if (!$project) {
     exit;
 }
 
+// DELETE PROJECT
+if (isset($_GET['delete_project']) && $_GET['delete_project'] == 'confirm') {
+    
+    // Start transaction
+    $conn->begin_transaction();
+    
+    try {
+        // Delete related records from all tables in correct order
+        
+        // 1. Delete issue notes first (child records)
+        $stmt = $conn->prepare("
+            DELETE FROM issue_notes 
+            WHERE issue_id IN (
+                SELECT id FROM issues WHERE project_id = ?
+            )
+        ");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        
+        // 2. Get all attachment file paths before deletion
+        $stmt = $conn->prepare("
+            SELECT a.file_path 
+            FROM attachments a 
+            WHERE a.related_type IN ('report', 'issue', 'task', 'project') 
+            AND (
+                (a.related_type = 'report' AND a.related_id IN (SELECT id FROM reports WHERE project_id = ?))
+                OR (a.related_type = 'issue' AND a.related_id IN (SELECT id FROM issues WHERE project_id = ?))
+                OR (a.related_type = 'task' AND a.related_id IN (SELECT id FROM tasks WHERE project_id = ?))
+                OR (a.related_type = 'project' AND a.related_id = ?)
+            )
+        ");
+        $stmt->bind_param("iiii", $project_id, $project_id, $project_id, $project_id);
+        $stmt->execute();
+        $files = $stmt->get_result();
+        
+        // Delete physical files
+        while ($file = $files->fetch_assoc()) {
+            if (file_exists($file['file_path'])) {
+                unlink($file['file_path']);
+            }
+        }
+        
+        // 3. Delete attachments from database
+        $stmt = $conn->prepare("
+            DELETE FROM attachments 
+            WHERE related_type IN ('report', 'issue', 'task', 'project') 
+            AND (
+                (related_type = 'report' AND related_id IN (SELECT id FROM reports WHERE project_id = ?))
+                OR (related_type = 'issue' AND related_id IN (SELECT id FROM issues WHERE project_id = ?))
+                OR (related_type = 'task' AND related_id IN (SELECT id FROM tasks WHERE project_id = ?))
+                OR (related_type = 'project' AND related_id = ?)
+            )
+        ");
+        $stmt->bind_param("iiii", $project_id, $project_id, $project_id, $project_id);
+        $stmt->execute();
+        
+        // 4. Delete reports
+        $stmt = $conn->prepare("DELETE FROM reports WHERE project_id = ?");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        
+        // 5. Delete issues (troubleshooting)
+        $stmt = $conn->prepare("DELETE FROM issues WHERE project_id = ?");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        
+        // 6. Delete task specifications (child of tasks)
+        $stmt = $conn->prepare("
+            DELETE FROM task_specifications 
+            WHERE task_id IN (
+                SELECT id FROM tasks WHERE project_id = ?
+            )
+        ");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        
+        // 7. Delete tasks (installation & programming)
+        $stmt = $conn->prepare("DELETE FROM tasks WHERE project_id = ?");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        
+        // 8. Delete schedules
+        $stmt = $conn->prepare("DELETE FROM schedules WHERE project = (SELECT name FROM projects WHERE id = ?)");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        
+        // 9. Finally delete the project
+        $stmt = $conn->prepare("DELETE FROM projects WHERE id = ?");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        
+        // Commit transaction
+        $conn->commit();
+        
+        // Redirect to projects list
+        header("Location: all_projects.php?deleted=success");
+        exit;
+        
+    } catch (Exception $e) {
+        // Rollback on error
+        $conn->rollback();
+        echo "Error deleting project: " . $e->getMessage();
+        exit;
+    }
+}
+
 // UPDATE
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -156,6 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="form-actions">
     <button type="submit" class="btn btn-primary">Save Changes</button>
     <button type="button" class="btn btn-secondary" onclick="window.location.href='project_details.php?id=<?= $project['id']; ?>'">Cancel</button>
+    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Project</button>
 </div>
 
 </form>
@@ -178,6 +285,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             this.value = '';
         }
     });
+    
+    function confirmDelete() {
+        const projectName = '<?= htmlspecialchars($project['name']); ?>';
+        const confirmMessage = `⚠️ PERINGATAN! ⚠️\n\n` +
+            `Anda akan menghapus project "${projectName}" dan SEMUA data yang terkait:\n` +
+            `• Semua reports dan attachment files\n` +
+            `• Semua issues/troubleshooting dan notes\n` +
+            `• Semua tasks (installation & programming)\n` +
+            `• Semua task specifications\n` +
+            `• Semua schedules\n` +
+            `• Project itu sendiri\n\n` +
+            `Tindakan ini TIDAK DAPAT dibatalkan!\n\n` +
+            `Apakah Anda yakin ingin melanjutkan?`;
+            
+        if (confirm(confirmMessage)) {
+            window.location.href = 'project_edit.php?id=<?= $project_id; ?>&delete_project=confirm';
+        }
+    }
 </script>
 </body>
 </html>

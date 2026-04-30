@@ -6,7 +6,7 @@ $id = $_GET['id'];
 $q = $conn->prepare("
     SELECT s.*, p.name AS project_name
     FROM schedules s
-    LEFT JOIN projects p ON s.project_id = p.id
+    LEFT JOIN projects p ON s.project = p.name
     WHERE s.id = ?
 ");
 
@@ -22,6 +22,31 @@ $data = $q->get_result()->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Schedule</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .priority-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        
+        .priority-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .priority-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .priority-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,7 +93,7 @@ $data = $q->get_result()->fetch_assoc();
                         </div>
                         <div class="info-item">
                             <span>Priority:</span>
-                            <span><?= $data['priority'] ?></span>
+                            <span class="priority-badge <?= $data['priority'] ?>"><?= ucfirst($data['priority']) ?></span>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ if (isset($_GET['delete_id'])) {
 $query = "
 SELECT s.*, p.name as project_name 
 FROM schedules s
-LEFT JOIN projects p ON s.project_id = p.id
+LEFT JOIN projects p ON s.project = p.name
 ORDER BY s.schedule_date DESC, s.start_time DESC
 ";
 
@@ -50,8 +50,8 @@ while ($row = $result->fetch_assoc()) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Schedule</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - SIS Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -77,8 +77,7 @@ while ($row = $result->fetch_assoc()) {
 
         <section class="edit-form">
             <div class="form-card">
-                <!-- HEADER CARD (SAMA KONSEP INDEX) -->
-                <div class="card">
+
                     <h2 style="text-align:center; margin-bottom:20px;">
                             Schedule Overview
                     </h2>
@@ -127,7 +126,10 @@ while ($row = $result->fetch_assoc()) {
                             <!-- HEADER -->
                             <div class="schedule-card-header">
                                 <h3><?= htmlspecialchars($row['task_name']) ?></h3>
-                                <span class="schedule-badge"><?= $row['schedule_date'] ?> <?= $row['start_time'] ?></span>
+                                <div class="schedule-header-info">
+                                    <span class="schedule-badge"><?= $row['schedule_date'] ?> <?= $row['start_time'] ?></span>
+                                    <span class="priority-badge <?= $row['priority'] ?>"><?= ucfirst($row['priority']) ?></span>
+                                </div>
                             </div>
 
                             <!-- BODY -->

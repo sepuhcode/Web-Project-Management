@@ -17,44 +17,17 @@ if (!$data) {
 // ================= UPDATE =================
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $project_id = $_POST['project_id'];
-
-    // 🔥 HANDLE CUSTOM PROJECT
-    if ($project_id === 'custom') {
-
-        $custom_name = trim($_POST['custom_project']);
-
-        if (empty($custom_name)) {
-            die("Custom project tidak boleh kosong");
-        }
-
-        // 🔎 cek apakah sudah ada
-        $check = $conn->prepare("SELECT id FROM projects WHERE name = ?");
-        $check->bind_param("s", $custom_name);
-        $check->execute();
-        $result = $check->get_result();
-
-        if ($result->num_rows > 0) {
-            $project_id = $result->fetch_assoc()['id'];
-        } else {
-            $insert = $conn->prepare("INSERT INTO projects (name) VALUES (?)");
-            $insert->bind_param("s", $custom_name);
-            $insert->execute();
-            $project_id = $insert->insert_id;
-        }
-    }
-
     // 🔥 UPDATE SCHEDULE
     $stmt = $conn->prepare("
         UPDATE schedules 
-        SET task_name = ?, project_id = ?, schedule_date = ?, start_time = ?, assigned_to = ?, description = ?, priority = ?
+        SET task_name = ?, project = ?, schedule_date = ?, start_time = ?, assigned_to = ?, description = ?, priority = ?
         WHERE id = ?
     ");
 
     $stmt->bind_param(
-        "sisssssi",
+        "sssssssi",
         $_POST['task_name'],
-        $project_id,
+        $_POST['project'],
         $_POST['schedule_date'],
         $_POST['start_time'],
         $_POST['assigned_to'],
@@ -114,32 +87,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="form-group">
-                        <label>Project</label>
-
-                        <select name="project_id" id="projectSelect" onchange="toggleCustomProject()" required>
-                            <option value="">-- Select Project --</option>
-
-                            <?php
-                            $p = $conn->query("SELECT * FROM projects");
-                            while ($pr = $p->fetch_assoc()) {
-                                $selected = ($pr['id'] == $data['project_id']) ? "selected" : "";
-                                echo "<option value='{$pr['id']}' $selected>{$pr['name']}</option>";
-                            }
-                            ?>
-
-                            <option value="custom">+ Custom Project</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="customProjectField" style="display: none;">
-                        <label>Custom Project Name</label>
-                        <input type="text" name="custom_project" placeholder="Enter project name">
+                        <label>Project Name</label>
+                        <input type="text" name="project" 
+                               value="<?= htmlspecialchars($data['project']) ?>" required>
                     </div>
 
                     <div class="form-group">
                         <label>Date</label>
                         <input type="date" name="schedule_date"
                                value="<?= $data['schedule_date'] ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" name="start_time" 
+                               value="<?= $data['start_time'] ?>">
                     </div>
 
                     <div class="form-group">

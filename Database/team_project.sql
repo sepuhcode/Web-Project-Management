@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2026 at 02:28 AM
+-- Generation Time: Apr 30, 2026 at 12:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,18 +42,23 @@ CREATE TABLE `attachments` (
 --
 
 INSERT INTO `attachments` (`id`, `related_type`, `related_id`, `file_name`, `file_path`, `file_size`, `uploaded_at`) VALUES
-(3, 'issue', 4, 'Equipment Photos.zip', '/uploads/equipment_photos.zip', '5.8 MB', '2026-04-03 01:37:24'),
-(14, 'issue', 4, '6.png', 'uploads/1775527366_6.png', '58.18 KB', '2026-04-07 02:02:46'),
-(15, 'issue', 4, '5.png', 'uploads/1775527366_5.png', '57.31 KB', '2026-04-07 02:02:46'),
-(16, 'issue', 4, '4.png', 'uploads/1775527366_4.png', '58.18 KB', '2026-04-07 02:02:46'),
-(17, 'issue', 4, '3.png', 'uploads/1775527366_3.png', '409.13 KB', '2026-04-07 02:02:46'),
-(45, 'issue', 5, '6.png', 'uploads/1775551621_6.png', '58.18 KB', '2026-04-07 08:47:01'),
-(46, 'issue', 5, '5.png', 'uploads/1775551621_5.png', '57.31 KB', '2026-04-07 08:47:01'),
-(47, 'issue', 5, '4.png', 'uploads/1775551621_4.png', '58.18 KB', '2026-04-07 08:47:01'),
-(48, 'issue', 5, '3.png', 'uploads/1775551621_3.png', '409.13 KB', '2026-04-07 08:47:01'),
-(55, 'report', 14, 'KNX Integration.pdf', 'uploads/1775554825_69d4d109457fe.pdf', '0.89 MB', '2026-04-07 09:40:25'),
-(56, 'report', 14, '6.png', 'uploads/1775554825_69d4d1094673f.png', '0.06 MB', '2026-04-07 09:40:25'),
-(57, 'report', 14, '4.png', 'uploads/1775584168_69d543a87ce57.png', NULL, '2026-04-07 17:49:28');
+(73, 'report', 14, '2022-10-14 (1).jpg', 'uploads/1775820172_69d8dd8c666f9.jpg', NULL, '2026-04-10 11:22:52'),
+(74, 'report', 14, '2022-10-14 (2).jpg', 'uploads/1775820172_69d8dd8c672ae.jpg', NULL, '2026-04-10 11:22:52'),
+(75, 'report', 14, '2022-10-14.jpg', 'uploads/1775820172_69d8dd8c67f8a.jpg', NULL, '2026-04-10 11:22:52'),
+(79, 'issue', 15, '3223c01d91948d24d76d09c6ed2c64e2.jpg', 'uploads/1776397398_3223c01d91948d24d76d09c6ed2c64e2.jpg', '6.24 KB', '2026-04-17 03:43:18'),
+(80, 'issue', 15, '442469-eagle-flying.jpg', 'uploads/1776397398_442469-eagle-flying.jpg', '328.6 KB', '2026-04-17 03:43:18'),
+(81, 'issue', 15, '1677918083335.jpg', 'uploads/1776397398_1677918083335.jpg', '3467.57 KB', '2026-04-17 03:43:18'),
+(90, 'issue', 15, 'background-640x360.jpg', 'uploads/1776415076_background-640x360.jpg', '55.01 KB', '2026-04-17 08:37:56'),
+(91, 'issue', 15, 'DSC05745-01-1.jpeg', 'uploads/1776415076_DSC05745-01-1.jpeg', '221.72 KB', '2026-04-17 08:37:56'),
+(92, 'issue', 15, 'foto cv formal.jpg', 'uploads/1776415076_foto cv formal.jpg', '23.65 KB', '2026-04-17 08:37:56'),
+(93, 'issue', 17, 'background-640x360.jpg', 'uploads/1777021816_background-640x360.jpg', '55.01 KB', '2026-04-24 09:10:16'),
+(94, 'issue', 5, 'aesthetic-computer-4k-c9qdhe02pr84wh3a.jpg', 'uploads/1777021992_aesthetic-computer-4k-c9qdhe02pr84wh3a.jpg', '34.49 KB', '2026-04-24 09:13:12'),
+(97, 'issue', 18, 'istockphoto-1317257861-170667a.jpg', 'uploads/1777451801_istockphoto-1317257861-170667a.jpg', '109.16 KB', '2026-04-29 08:36:41'),
+(98, 'issue', 18, 'ss tes.PNG', 'uploads/1777536207_ss tes.PNG', '88.35 KB', '2026-04-30 08:03:27'),
+(99, 'issue', 18, 'thumb-1920-577684.jpg', 'uploads/1777536207_thumb-1920-577684.jpg', '53.33 KB', '2026-04-30 08:03:27'),
+(100, 'issue', 18, 'tsukuyomi.jpg.jpeg', 'uploads/1777536207_tsukuyomi.jpg.jpeg', '162.7 KB', '2026-04-30 08:03:27'),
+(101, 'issue', 18, 'wallpaperflare.com_wallpaper.jpg', 'uploads/1777536207_wallpaperflare.com_wallpaper.jpg', '37.77 KB', '2026-04-30 08:03:27'),
+(109, 'issue', 22, 'WIN_20240118_11_38_32_Pro.jpg', 'uploads/1777545103_WIN_20240118_11_38_32_Pro.jpg', '154.2 KB', '2026-04-30 10:31:43');
 
 -- --------------------------------------------------------
 
@@ -74,7 +79,7 @@ CREATE TABLE `issues` (
   `system_logs` text DEFAULT NULL,
   `network_status` varchar(255) DEFAULT NULL,
   `root_cause` text DEFAULT NULL,
-  `reported_date` datetime DEFAULT NULL,
+  `reported_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -83,11 +88,11 @@ CREATE TABLE `issues` (
 --
 
 INSERT INTO `issues` (`id`, `project_id`, `issue_type`, `description`, `resolution`, `priority`, `status`, `area`, `error_code`, `system_logs`, `network_status`, `root_cause`, `reported_date`, `created_at`) VALUES
-(1, 1, 'Access Control System Not Responding', 'Users unable to access entry system', 'Ya dibenerin lah', 'high', 'in-progress', 'room', 'ACS_ERR_001', 'Device timeout logs detected', 'Partial outage', 'Controller malfunction', '2026-01-15 10:00:00', '2026-04-03 01:37:24'),
-(2, 1, 'CCTV Camera Connection Lost', 'Camera disconnected from system', 'Ya dibenerin lah', 'medium', 'completed', 'room', 'CCTV_ERR_002', 'Connection lost logs', 'Stable', 'Loose cable', '2026-01-10 09:00:00', '2026-04-03 01:37:24'),
-(3, 1, 'Smart Lighting Flickering Issue', 'Lights flickering intermittently', 'Ya dibenerin lah', 'low', 'pending', 'room', 'LIGHT_ERR_003', 'Voltage fluctuation detected', 'Stable', 'Power inconsistency', '2026-01-20 11:00:00', '2026-04-03 01:37:24'),
-(4, 1, 'Network Connectivity Issues', 'Network affecting access control system', 'Ya dibenerin lah', 'critical', 'completed', 'room', 'NET_CONN_045', 'Connection timeout errors detected', 'Partial outage - 60% affected', 'Network switch configuration error', '2026-01-06 14:00:00', '2026-04-03 01:37:24'),
-(5, 1, 'Test Backend Issue', 'Testing insert from PHP\r\nTesting insert from PHP\r\n\r\nTesting insert from PHP\r\n', 'Ya dibenerin lah\r\nYa dibenerin lah\r\n\r\nYa dibenerin lah\r\n', 'low', 'pending', 'room', '', '', '', '', '2026-04-03 03:55:00', '2026-04-03 01:55:55');
+(1, 1, 'Access Control System Not Responding', 'Users unable to access entry system', 'Ya dibenerin lah', 'high', 'in-progress', 'room', 'ACS_ERR_001', 'Device timeout logs detected', 'Partial outage', 'Controller malfunction', '2026-01-15', '2026-04-03 01:37:24'),
+(2, 1, 'CCTV Camera Connection Lost', 'Camera disconnected from system', 'Ya dibenerin lah', 'medium', 'completed', 'room', 'CCTV_ERR_002', 'Connection lost logs', 'Stable', 'Loose cable', '2026-01-10', '2026-04-03 01:37:24'),
+(3, 1, 'Smart Lighting Flickering Issue', 'Lights flickering intermittently', 'Ya dibenerin lah', 'low', 'pending', 'room', 'LIGHT_ERR_003', 'Voltage fluctuation detected', 'Stable', 'Power inconsistency', '2026-01-20', '2026-04-03 01:37:24'),
+(4, 1, 'Network Connectivity Issues', 'Network affecting access control system', 'Ya dibenerin lah', 'critical', 'completed', 'room', 'NET_CONN_045', 'Connection timeout errors detected', 'Partial outage - 60% affected', 'Network switch configuration error', '2026-01-06', '2026-04-03 01:37:24'),
+(5, 1, 'Test Backend Issue', 'Testing insert from PHP\r\nTesting insert from PHP\r\n\r\nTesting insert from PHP\r\n', 'Ya dibenerin lah\r\nYa dibenerin lah\r\n\r\nYa dibenerin lah\r\n', 'high', 'pending', 'room', '', '', '', '', '2026-04-04', '2026-04-03 01:55:55');
 
 -- --------------------------------------------------------
 
@@ -110,8 +115,7 @@ CREATE TABLE `issue_notes` (
 INSERT INTO `issue_notes` (`id`, `issue_id`, `author`, `content`, `created_at`) VALUES
 (1, 4, 'Network Team', 'Issue reported by multiple users. Initial assessment shows network connectivity problems affecting access control systems.', '2026-01-06 07:45:00'),
 (2, 4, 'John Technician', 'Root cause identified as switch configuration error. Temporary bypass implemented.', '2026-01-06 09:30:00'),
-(9, 5, 'Fahmi', 'vintek pantek', '2026-04-07 18:50:34'),
-(13, 5, 'fahmi', 'woi', '2026-04-07 23:49:10');
+(15, 5, 'abah', 'apee', '2026-04-10 09:34:33');
 
 -- --------------------------------------------------------
 
@@ -125,7 +129,7 @@ CREATE TABLE `projects` (
   `status` enum('active','completed','on-hold') DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  `team_size` int(11) DEFAULT NULL,
+  `pic` varchar(30) DEFAULT NULL,
   `progress` int(11) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -135,9 +139,9 @@ CREATE TABLE `projects` (
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`id`, `name`, `status`, `start_date`, `end_date`, `team_size`, `progress`, `description`, `created_at`) VALUES
-(1, 'Tower Bersama Indonesia Group - Bali', 'active', '2026-01-01', '2026-04-30', 5, 45, 'Installation and integration of smart building systems for Bali location', '2026-04-03 01:37:24'),
-(2, 'Menara Mandiri', 'completed', '2026-04-05', '2026-04-30', 6, 55, 'rwgsdadsd', '2026-04-05 07:50:19');
+INSERT INTO `projects` (`id`, `name`, `status`, `start_date`, `end_date`, `pic`, `progress`, `description`, `created_at`) VALUES
+(1, 'Tower Bersama Indonesia Group - Bali', 'active', '2026-01-01', '2026-04-30', 'Arifin', 45, 'Installation and integration of smart building systems for Bali location', '2026-04-03 01:37:24'),
+(2, 'Menara Mandiri', 'completed', '2026-04-05', '2026-04-30', 'Renaldy', 55, 'rwgsdadsd', '2026-04-05 07:50:19');
 
 -- --------------------------------------------------------
 
@@ -158,8 +162,8 @@ CREATE TABLE `reports` (
 --
 
 INSERT INTO `reports` (`id`, `project_id`, `progress_summary`, `report_date`, `created_at`) VALUES
-(1, 1, 'Weekly Progress Report - Week 1', '2026-01-07', '2026-04-03 01:37:24'),
-(2, 1, 'Weekly Progress Report - Week 2', '2026-01-14', '2026-04-03 01:37:24'),
+(1, 1, 'Weekly Progress Report - Week 1', '2026-01-04', '2026-04-03 01:37:24'),
+(2, 1, 'Weekly Progress Report - Week 2', '2026-01-06', '2026-04-03 01:37:24'),
 (14, 1, 'asdasd', '2026-04-10', '2026-04-07 09:40:25');
 
 -- --------------------------------------------------------
@@ -172,7 +176,7 @@ CREATE TABLE `schedules` (
   `id` int(11) NOT NULL,
   `task_name` varchar(255) NOT NULL,
   `description` varchar(1000) NOT NULL,
-  `project_id` int(11) DEFAULT NULL,
+  `project` varchar(255) NOT NULL,
   `schedule_date` date DEFAULT NULL,
   `start_time` time DEFAULT NULL,
   `assigned_to` varchar(255) DEFAULT NULL,
@@ -184,11 +188,9 @@ CREATE TABLE `schedules` (
 -- Dumping data for table `schedules`
 --
 
-INSERT INTO `schedules` (`id`, `task_name`, `description`, `project_id`, `schedule_date`, `start_time`, `assigned_to`, `priority`, `created_at`) VALUES
-(1, 'Network Setup', 'Lakukan Maintenance bla bla bla lorem ipsum bla bla bla \r\nLakukan Maintenance bla bla bla lorem ipsum bla bla bla \r\nLakukan Maintenance bla bla bla lorem ipsum bla bla bla \r\nLakukan Maintenance bla bla bla lorem ipsum bla bla bla \r\n', 1, '2026-04-10', '08:00:00', 'Melody', 'high', '2026-04-07 18:33:31'),
-(2, 'Testing System', 'Lakukan Maintenance bla bla bla lorem ipsum bla bla bla ', 1, '2026-04-15', '09:00:00', 'Budi', 'medium', '2026-04-07 18:33:31'),
-(3, 'Deployment', 'Lakukan Maintenance bla bla bla lorem ipsum bla bla bla ', 2, '2026-04-20', '10:00:00', 'Rudi', 'high', '2026-04-07 18:33:31'),
-(5, 'asdasdasd', 'asdasd adwa dawdawd awdad aw\r\n\r\n\r\nasdas dawdaw dawd\r\n\r\nasdasdasd', 1, '2026-04-08', '06:00:00', 'Melody REEE', 'medium', '2026-04-07 22:13:40');
+INSERT INTO `schedules` (`id`, `task_name`, `description`, `project`, `schedule_date`, `start_time`, `assigned_to`, `priority`, `created_at`) VALUES
+(15, 'Installasi Speaker Ceiling', 'asdkadadoasdoia osdaoksndoandoanwdo iawdawdawd adadaw', 'Akraya', '2026-04-27', '12:59:00', 'Melody', 'high', '2026-04-24 05:59:33'),
+(17, 'asadasd', 'asdasda', 'asdasd', '2026-05-23', '08:26:00', 'qwqw', 'medium', '2026-04-30 10:25:48');
 
 -- --------------------------------------------------------
 
@@ -216,13 +218,16 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `project_id`, `title`, `description`, `type`, `status`, `progress`, `start_date`, `end_date`, `created_at`, `area`, `priority`) VALUES
-(1, 1, 'Install Access Control System', 'Setup access control devices at main entrance', 'installation', 'in-progress', 90, '2026-01-02', '2026-01-05', '2026-04-03 01:37:24', 'Room', 'low'),
-(2, 1, 'Install CCTV Cameras', 'Install CCTV across building A and B', 'installation', 'in-progress', 85, '2026-01-06', '2026-01-20', '2026-04-03 01:37:24', 'asd', 'critical'),
+(1, 1, 'Install Access Control System', 'Setup access control devices at main entrance', 'installation', '', 90, '2026-01-02', '2026-01-05', '2026-04-03 01:37:24', 'Room', 'low'),
+(2, 1, 'Install CCTV Cameras', 'Install CCTV across building A and B', 'installation', '', 85, '2026-01-06', '2026-01-20', '2026-04-03 01:37:24', 'asd', 'critical'),
 (3, 1, 'Program Smart Lighting', 'Configure smart lighting automation system', 'programming', 'in-progress', 10, '2026-01-10', '2026-02-10', '2026-04-03 01:37:24', 'Room', 'high'),
 (4, 1, 'System Testing Setup', 'Prepare testing scripts for system validation', 'programming', 'pending', 0, '2026-02-01', '2026-02-20', '2026-04-03 01:37:24', 'Room', 'critical'),
 (5, 1, 'control dsp', 'asdasd', 'programming', 'completed', 100, '2026-04-05', '2026-04-21', '2026-04-05 22:14:40', 'Room', 'medium'),
-(6, 1, 'Interkoneksi CP4', 'asdasdasd\r\nqweqw\r\n\r\nqweqwe', 'installation', 'pending', 25, '2026-04-09', '2026-04-30', '2026-04-05 22:15:19', 'Room', 'high'),
-(17, 1, '12wqeqwe', 'asdas123\r\n\r\nasdasd\r\nasdsad', 'programming', 'completed', 12, '2026-04-07', '2026-04-09', '2026-04-07 23:04:56', 'qweqwe', 'low');
+(6, 1, 'Interkoneksi CP4', 'hello nama kamu siapa', 'installation', 'completed', 100, '2026-04-09', '2026-04-30', '2026-04-05 22:15:19', 'Room', 'high'),
+(18, 1, 'Installasi Speaker Ceiling', 'install yang bner ya speakernya', 'installation', 'in-progress', 12, '2026-04-13', '2026-04-19', '2026-04-10 07:34:52', 'Room', 'critical'),
+(27, NULL, NULL, 'adasds', NULL, '', 12, '2026-04-09', '2026-04-17', '2026-04-10 09:04:52', 'qweqe', 'critical'),
+(28, NULL, NULL, 'qdas', NULL, '', 12, '2026-04-17', '2026-04-11', '2026-04-10 09:05:13', 'asad', 'critical'),
+(29, NULL, NULL, 'asdasdads', NULL, '', 12, '2026-04-24', '2026-04-22', '2026-04-10 09:06:11', 'asdasd', 'critical');
 
 -- --------------------------------------------------------
 
@@ -246,7 +251,8 @@ CREATE TABLE `task_specifications` (
 INSERT INTO `task_specifications` (`id`, `task_id`, `cable_type`, `cable_length`, `connection_type`, `cable_label`) VALUES
 (1, 6, 'cat6', 25, 'rj45', 'cp4.rj45'),
 (3, 2, '', 0, '', ''),
-(4, 1, '', 0, '', '');
+(4, 1, '', 0, '', ''),
+(8, 18, 'cable audio', 20, 'euroblock', 'spk01');
 
 --
 -- Indexes for dumped tables
@@ -289,8 +295,7 @@ ALTER TABLE `reports`
 -- Indexes for table `schedules`
 --
 ALTER TABLE `schedules`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `project_id` (`project_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tasks`
@@ -314,49 +319,49 @@ ALTER TABLE `task_specifications`
 -- AUTO_INCREMENT for table `attachments`
 --
 ALTER TABLE `attachments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `issues`
 --
 ALTER TABLE `issues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `issue_notes`
 --
 ALTER TABLE `issue_notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `task_specifications`
 --
 ALTER TABLE `task_specifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Constraints for dumped tables
@@ -379,12 +384,6 @@ ALTER TABLE `issue_notes`
 --
 ALTER TABLE `reports`
   ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `schedules`
---
-ALTER TABLE `schedules`
-  ADD CONSTRAINT `schedules_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`);
 
 --
 -- Constraints for table `tasks`

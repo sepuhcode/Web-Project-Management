@@ -113,10 +113,8 @@ $notes = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Troubleshooting Task - SIS Dashboard</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        
-    </style>
-</head>
+    <link rel="stylesheet" href="upload-enhanced.css">
+    </head>
 <body>
     <header class="navbar">
         <div class="nav-container">
@@ -133,167 +131,245 @@ $notes = $stmt->get_result();
         </div>
     </header>
 
+    <!-- 🔥 MAIN -->
     <main class="dashboard">
-        <!-- Breadcrumb Navigation -->
+
+    <!-- 🔥 CONTAINER -->
+    <div class="container">
+
+        <!-- 🔥 BREADCRUMB -->
         <nav class="breadcrumb">
             <a href="index.php">Home</a>
             <span class="breadcrumb-separator">></span>
+
             <a href="all_projects.php">Active Projects</a>
             <span class="breadcrumb-separator">></span>
-            <a href="project_details.php?id=<?= $issue['project_id']; ?>"><?= htmlspecialchars($issue['project_name']); ?></a>
+
+            <a href="project_details.php?id=<?= $issue['project_id']; ?>">
+                <?= htmlspecialchars($issue['project_name']); ?>
+            </a>
             <span class="breadcrumb-separator">></span>
+
             <a href="troubleshooting.php?project_id=<?= $issue['project_id']; ?>">Troubleshooting</a>
             <span class="breadcrumb-separator">></span>
-            <span class="breadcrumb-current">Task #<?= str_pad($issue['id'], 3, '0', STR_PAD_LEFT); ?> - <?= htmlspecialchars($issue['issue_type']); ?></span>
+
+            <span class="breadcrumb-current">
+                View Issue #<?= $issue['id']; ?>
+            </span>
         </nav>
 
-        <!-- Task Details -->
-        <section class="task-detail-section">
-            <div class="task-header">
-                <div class="task-title">
-                    <h1>Troubleshooting Task Details</h1>
-                    <span class="task-id">Task #<?= str_pad($issue['id'], 3, '0', STR_PAD_LEFT); ?></span>
-                </div>
-                <div class="task-status">
-                    <span class="status-badge <?= $issue['status']; ?>">
-                        <?= ucfirst($issue['status']); ?>
-                    </span>
-                </div>
-            </div>
-
-            <div class="task-content">
-                <div class="task-info-grid">
-                    <div class="info-card">
-                        <h3>Task Information</h3>
-                        <div class="info-list">
-                            <div class="info-item">
-                                <span class="info-label">Issue Type:</span>
-                                <span class="info-value"><?= htmlspecialchars($issue['issue_type']); ?></span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Area:</span>
-                                <span class="info-value"><?= htmlspecialchars($issue['area']); ?></span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Priority:</span>
-                                <span class="info-value"><?= getPriorityBadge($issue['priority']); ?></span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Status:</span>
-                                <span class="info-value"><?= ucfirst($issue['status']); ?></span>
-                            </div>
-                        </div>
+        <div class="form-card">
+            <!-- Task Details -->
+            <div class="task-detail-section">
+                <div class="task-header">
+                    <div class="task-title">
+                        <h1>Troubleshooting Task Details</h1>
+                        <span class="task-id">Task #<?= str_pad($issue['id'], 3, '0', STR_PAD_LEFT); ?></span>
                     </div>
-
-                    <div class="info-card">
-                        <h3>Timeline</h3>
-                        <div class="info-list">
-                            <div class="info-item">
-                                <span class="info-label">Reported Date:</span>
-                                <span class="info-value"><?= formatDate($issue['reported_date']); ?></span>
-                            </div>
-                                                        
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-card full-width">
-                    <h3>Issue Description</h3>
-                    <div class="task-description">
-                        <p><?= nl2br(htmlspecialchars($issue['description'])); ?></p>
-                    </div>
-                </div>
-                
-                <div class="info-card full-width">
-                    <h3>Resolution Steps</h3>
-                        <div class="task-description">
-                                <h4>Resolution Applied</h4>
-                                <p><?= nl2br(htmlspecialchars($issue['resolution'])); ?></p>
-                        </div>
-                </div>
-
-                <div class="info-card full-width">
-                    <h3>Diagnostic Information</h3>
-                    <div class="diagnostic-grid">
-                        <div class="diag-item">
-                            <span class="diag-label">Error Code:</span>
-                            <span class="diag-value"><?= $issue['error_code'] ?: 'N/A'; ?></span>
-                        </div>
-                        <div class="diag-item">
-                            <span class="diag-label">System Logs:</span>
-                            <span class="diag-value"><?= $issue['system_logs'] ?: 'N/A'; ?></span>
-                        </div>
-                        <div class="diag-item">
-                            <span class="diag-label">Network Status:</span>
-                            <span class="diag-value"><?= $issue['network_status'] ?: 'N/A'; ?></span>
-                        </div>
-                        <div class="diag-item">
-                            <span class="diag-label">Root Cause:</span>
-                            <span class="diag-value"><?= $issue['root_cause'] ?: 'N/A'; ?></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-card full-width">
-                    <h3>Attachments</h3>
-                    <div class="attachment-list">
-                        <?php while($file = $attachments->fetch_assoc()): ?>
-                        <div class="attachment-item">
-                            <div class="attachment-icon">📎</div>
-                            <div class="attachment-info">
-                                <h4><?= htmlspecialchars($file['file_name']); ?></h4>
-                                <p><?= $file['file_size']; ?> • Uploaded <?= formatDate($file['uploaded_at']); ?></p>
-                            </div>
-                            <a href="<?= $file['file_path']; ?>" class="action-btn download" download>Download</a>
-                        </div>
-                        <?php endwhile; ?>
-                    </div>
-                </div>
-
-                <div class="info-card full-width">
-                    <h3>Notes & Comments</h3>
-                    <div class="notes-section">
-                        <?php while($note = $notes->fetch_assoc()): ?>
-                        <div class="note-item">
-                            <div class="note-header">
-                                <span class="note-author"><?= htmlspecialchars($note['author']); ?></span>
-                                <span class="note-date"><?= formatDateTime($note['created_at']); ?></span>
-                                <a href="?id=<?= $issue_id; ?>&delete_note=<?= $note['id']; ?>" 
-                                   class="action-btn delete" 
-                                   onclick="return confirm('Are you sure you want to delete this note?');"
-                                   style="padding: 0.5rem 1rem; font-size: 0.85rem;">
-                                    Delete
-                                </a>
-                            </div>
-                            <p class="note-content"><?= htmlspecialchars($note['content']); ?></p>
-                        </div>
-                        <?php endwhile; ?>
-                    </div>
-
-                    <!-- ADD NOTE -->
-                    <div class="add-note">
-                        <form method="POST">
-                            <textarea name="author" placeholder="Enter Name..." required></textarea>
-                            <textarea name="note_content" placeholder="Add a note..." required></textarea>
-                            <button type="submit" name="add_note" class=" btn btn-primary">
-                                Add Note
-                            </button>
-                        </form>
+                    <div class="task-status">
+                        <span class="status-badge <?= $issue['status']; ?>">
+                            <?= ucfirst($issue['status']); ?>
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="task-actions">
-                <a href="troubleshooting_edit.php?id=<?= $issue['id']; ?>" class="btn btn-primary">Edit Task</a>
-                <a href="troubleshooting.php?project_id=<?= $issue['project_id']; ?>" class="btn btn-secondary">Back to List</a>
-                
+        <div class="form-grid">
+
+            <div class="info-card">
+                <h3>Task Information</h3>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">Issue Type:</span>
+                        <span class="info-value"><?= htmlspecialchars($issue['issue_type']); ?></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Area:</span>
+                        <span class="info-value"><?= htmlspecialchars($issue['area']); ?></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Priority:</span>
+                        <span class="info-value"><?= getPriorityBadge($issue['priority']); ?></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value"><?= ucfirst($issue['status']); ?></span>
+                    </div>
+                </div>
             </div>
-        </section>
-    </main>
-    <!-- 🔥 FOOTER -->
-    <footer class="footer">
-        <p>© <?= date('Y'); ?> Project Team Report</p>
-    </footer>
+
+            <div class="info-card">
+                <h3>Timeline</h3>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">Reported Date:</span>
+                        <span class="info-value"><?= formatDate($issue['reported_date']); ?></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card full-width">
+                <h3>Issue Description</h3>
+                <div class="task-description">
+                    <p><?= nl2br(htmlspecialchars($issue['description'])); ?></p>
+                </div>
+            </div>
+
+            <div class="info-card full-width">
+                <h3>Resolution Steps</h3>
+                <div class="task-description">
+                    <h4>Resolution Applied</h4>
+                    <p><?= nl2br(htmlspecialchars($issue['resolution'])); ?></p>
+                </div>
+            </div>
+
+            <div class="info-card full-width">
+                <h3>Diagnostic Information</h3>
+                <div class="diagnostic-grid">
+                    <div class="diag-item">
+                        <span class="diag-label">Error Code:</span>
+                        <span class="diag-value"><?= $issue['error_code'] ?: 'N/A'; ?></span>
+                    </div>
+                    <div class="diag-item">
+                        <span class="diag-label">System Logs:</span>
+                        <span class="diag-value"><?= $issue['system_logs'] ?: 'N/A'; ?></span>
+                    </div>
+                    <div class="diag-item">
+                        <span class="diag-label">Network Status:</span>
+                        <span class="diag-value"><?= $issue['network_status'] ?: 'N/A'; ?></span>
+                    </div>
+                    <div class="diag-item">
+                        <span class="diag-label">Root Cause:</span>
+                        <span class="diag-value"><?= $issue['root_cause'] ?: 'N/A'; ?></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="info-card full-width" style="margin-bottom: 2rem;">
+            <h3>Attachments</h3>
+            <div class="doc-grid">    
+                <?php while($file = $attachments->fetch_assoc()): 
+                $ext = strtolower(pathinfo($file['file_name'], PATHINFO_EXTENSION));
+                ?>
+                <div class="doc-item">
+                
+                    <?php if(in_array($ext,['jpg','jpeg','png','gif'])): ?>
+                    
+                        <img src="<?= $file['file_path']; ?>" onclick="openImage('<?= $file['file_path']; ?>')">
+                    
+                    <?php elseif($ext=='pdf'): ?>
+                
+                        <div class="pdf-preview" onclick="openPDF('<?= $file['file_path']; ?>')">
+                            📄 PDF
+                        </div>
+                
+                    <?php else: ?>
+                
+                        <div class="file-preview" onclick="window.open('<?= $file['file_path']; ?>', '_blank')">
+                            📄 <?= strtoupper($ext); ?>
+                        </div>
+                
+                    <?php endif; ?>
+                        
+                    <div class="file-name">
+                        <?= htmlspecialchars($file['file_name']); ?>
+                    </div>
+                
+                    <a href="<?= $file['file_path']; ?>" download class="download-btn-small">
+                        Download
+                    </a>
+                </div>
+
+                <?php endwhile; ?>
+            </div>
+        </div>
+        
+
+        <div class="info-card full-width">
+            <h3>Notes & Comments</h3>
+            <div class="notes-section">
+                <?php while($note = $notes->fetch_assoc()): ?>
+                <div class="note-item">
+                    <div class="note-header">
+                        <div class="note-header-left">
+                            <span class="note-author"><?= htmlspecialchars($note['author']); ?></span>
+                            <span class="note-date"><?= formatDateTime($note['created_at']); ?></span>
+                        </div>
+                        <a href="?id=<?= $issue_id; ?>&delete_note=<?= $note['id']; ?>" 
+                           class="note-delete-btn" 
+                           onclick="return confirm('Are you sure you want to delete this note?');">
+                            Delete
+                        </a>
+                    </div>
+                    <p class="note-content"><?= htmlspecialchars($note['content']); ?></p>
+                </div>
+                <?php endwhile; ?>
+            </div>
+
+            <!-- ADD NOTE -->
+            <div class="add-note">
+                <form method="POST">
+                    <textarea name="author" placeholder="Enter Name..." required></textarea>
+                    <textarea name="note_content" placeholder="Add a note..." required></textarea>
+                    
+                    <button type="submit" name="add_note" class="btn btn-primary">
+                        Add Note
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+            <a href="troubleshooting_edit.php?id=<?= $issue['id']; ?>" class="btn btn-primary">Edit Task</a>
+            <a href="troubleshooting.php?project_id=<?= $issue['project_id']; ?>" class="btn btn-secondary">Back to List</a>
+        </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Image Modal -->
+<div id="imageModal" class="img-modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <a href="#" id="modalDownload" class="download-btn-modal" download>Download</a>
+</div>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+    <p>© <?= date('Y'); ?> Project Team Report</p>
+</footer>
+
+<script>
+function openImage(src) {
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = src;
+    document.getElementById('modalDownload').href = src;
+}
+
+function openPDF(src) {
+    document.getElementById('imageModal').style.display = 'flex';
+    document.getElementById('modalImage').src = '';
+    document.getElementById('modalImage').innerHTML = '<iframe src="' + src + '" style="width:100%; height:100%; border:none;"></iframe>';
+    document.getElementById('modalDownload').href = src;
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+    document.getElementById('modalImage').src = '';
+    document.getElementById('modalImage').innerHTML = '';
+}
+
+// Close modal on ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+</script>
 </body>
 </html>

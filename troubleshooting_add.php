@@ -195,17 +195,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </div>
 
-<!-- DIAGNOSTIC -->
-<div class="form-group">
-<h3>Diagnostic Information</h3>
+    <!-- DIAGNOSTIC -->
+    <div class="form-group">
+        <h3>Diagnostic Information</h3>
 
-<div class="form-grid">
-<input type="text" name="error_code" placeholder="Error Code">
-<input type="text" name="system_logs" placeholder="System Logs">
-<input type="text" name="network_status" placeholder="Network Status">
-<input type="text" name="root_cause" placeholder="Root Cause">
-</div>
-</div>
+        <div class="form-grid">
+        <input type="text" name="error_code" placeholder="Error Code">
+        <input type="text" name="system_logs" placeholder="System Logs">
+        <input type="text" name="network_status" placeholder="Network Status">
+        <input type="text" name="root_cause" placeholder="Root Cause">
+        </div>
+    </div>
 
 <div class="form-section">
 
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </button>
             </div>
 
-            <div class="file-preview" id="file-preview"></div>
+            <div class="" id="file-preview"></div>
         </div>
     </div>
     <!-- ACTION BUTTON -->

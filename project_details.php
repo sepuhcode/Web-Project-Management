@@ -14,25 +14,31 @@ $project = $result->fetch_assoc();
 if (isset($_GET['delete_file'])) {
     $file_id = (int)$_GET['delete_file'];
     
-    // Get file info before deletion
+    // Get file info before deletion (support both report and issue)
     $stmt = $conn->prepare("
-        SELECT a.file_path, r.project_id 
+        SELECT 
+            a.file_path, 
+            r.project_id as report_project_id,
+            i.project_id as issue_project_id
         FROM attachments a 
-        JOIN reports r ON a.related_id = r.id 
-        WHERE a.id = ? AND a.related_type = 'report'
+        LEFT JOIN reports r ON a.related_id = r.id AND a.related_type = 'report'
+        LEFT JOIN issues i ON a.related_id = i.id AND a.related_type = 'issue'
+        WHERE a.id = ? AND a.related_type IN ('report', 'issue')
     ");
     $stmt->bind_param("i", $file_id);
     $stmt->execute();
     $file_info = $stmt->get_result()->fetch_assoc();
     
-    if ($file_info && $file_info['project_id'] == $project_id) {
+    $file_project_id = $file_info['report_project_id'] ?: $file_info['issue_project_id'];
+    
+    if ($file_info && $file_project_id == $project_id) {
         // Delete physical file
         if (file_exists($file_info['file_path'])) {
             unlink($file_info['file_path']);
         }
         
         // Delete from database
-        $stmt = $conn->prepare("DELETE FROM attachments WHERE id = ? AND related_type = 'report'");
+        $stmt = $conn->prepare("DELETE FROM attachments WHERE id = ? AND related_type IN ('report', 'issue')");
         $stmt->bind_param("i", $file_id);
         $stmt->execute();
     }
@@ -41,17 +47,29 @@ if (isset($_GET['delete_file'])) {
     exit;
 }
 
-// Documentation querry
+// Documentation query - include both report and issue attachments
 $stmt = $conn->prepare("
-SELECT a.*
+SELECT 
+    a.*,
+    CASE 
+        WHEN a.related_type = 'report' THEN r.report_date
+        WHEN a.related_type = 'issue' THEN i.reported_date
+        ELSE NULL
+    END as document_date,
+    CASE 
+        WHEN a.related_type = 'report' THEN 'Report'
+        WHEN a.related_type = 'issue' THEN 'Issue'
+        ELSE 'Document'
+    END as document_type
 FROM attachments a
-JOIN reports r ON a.related_id = r.id
-WHERE a.related_type='report' 
-AND r.project_id=?
+LEFT JOIN reports r ON a.related_id = r.id AND a.related_type = 'report'
+LEFT JOIN issues i ON a.related_id = i.id AND a.related_type = 'issue'
+WHERE (a.related_type = 'report' AND r.project_id = ?)
+   OR (a.related_type = 'issue' AND i.project_id = ?)
 ORDER BY a.uploaded_at DESC
 LIMIT 4
 ");
-$stmt->bind_param("i", $project_id);
+$stmt->bind_param("ii", $project_id, $project_id);
 $stmt->execute();
 $docs = $stmt->get_result();
 
@@ -118,7 +136,7 @@ if (!$project) {
     <section class="project-header-section">
         <div class="project-title">
             <h1><?= htmlspecialchars($project['name']); ?></h1>
-            <span class="project-status-badge <?= $project['status']; ?>">
+            <span class="project-status <?= $project['status']; ?>">
                 <?= ucfirst($project['status']); ?>
             </span>
         </div>

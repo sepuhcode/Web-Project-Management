@@ -1,67 +1,48 @@
 <?php
 require_once 'config.php';
 
-// ================= FUNCTION =================
-function resolveProjectId($conn, $project_id, $custom_name)
-{
-    if ($project_id !== 'custom') {
-        return $project_id;
-    }
+/* ===============================
+   HANDLE SUBMIT
+================================ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $custom_name = trim($custom_name);
+    $task_name     = sanitize($conn, $_POST['task_name']);
+    $schedule_date = $_POST['schedule_date'];
+    $start_time    = $_POST['start_time'];
+    $priority      = $_POST['priority'] ?? 'medium';
+    $assigned_to   = sanitize($conn, $_POST['assigned_to']);
+    $description   = $_POST['description'];
+    $project       = $_POST['project'];
 
-    if (empty($custom_name)) {
-        die("Custom project tidak boleh kosong");
-    }
 
-    // cek existing
-    $check = $conn->prepare("SELECT id FROM projects WHERE name = ?");
-    $check->bind_param("s", $custom_name);
-    $check->execute();
-    $result = $check->get_result();
-
-    if ($result->num_rows > 0) {
-        return $result->fetch_assoc()['id'];
-    }
-
-    // insert baru
-    $insert = $conn->prepare("INSERT INTO projects (name) VALUES (?)");
-    $insert->bind_param("s", $custom_name);
-    $insert->execute();
-
-    return $insert->insert_id;
-}
-
-// ================= INSERT =================
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $project_id = resolveProjectId(
-        $conn,
-        $_POST['project_id'],
-        $_POST['custom_project'] ?? ''
-    );
-
+    /* ===============================
+    INSERT SCHEDULE
+    =============================== */
     $stmt = $conn->prepare("
         INSERT INTO schedules 
-        (task_name, project_id, schedule_date, start_time, assigned_to, description, priority)
+        (project, task_name, schedule_date, start_time, priority, assigned_to, description)
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->bind_param(
-        "sisssss",
-        $_POST['task_name'],
-        $project_id,
-        $_POST['schedule_date'],
-        $_POST['start_time'],
-        $_POST['assigned_to'],
-        $_POST['description'],
-        $_POST['priority']
+        "sssssss",
+        $project,
+        $task_name,
+        $schedule_date,
+        $start_time,
+        $priority,
+        $assigned_to,
+        $description
     );
 
-    $stmt->execute();
+    if ($stmt->execute()) {
+        header("Location: schedule.php");
+        exit;
+    } else {
+        echo "Gagal menyimpan data ke database! Error: " . $stmt->error;
+    }
 
-    header("Location: schedule.php");
-    exit;
+    $stmt->close();
 }
 ?>
 
@@ -108,30 +89,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="form-group">
-                        <label>Project</label>
-
-                        <select name="project_id" id="projectSelect" onchange="toggleCustomProject()" required>
-                            <option value="">-- Select Project --</option>
-
-                            <?php
-                            $p = $conn->query("SELECT * FROM projects");
-                            while ($pr = $p->fetch_assoc()) {
-                                echo "<option value='{$pr['id']}'>{$pr['name']}</option>";
-                            }
-                            ?>
-
-                            <option value="custom">+ Custom Project</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="customProjectField" style="display: none;">
-                        <label>Custom Project Name</label>
-                        <input type="text" name="custom_project" placeholder="Enter project name">
+                        <label>Project Name</label>
+                        <input type="text" name="project" required>
                     </div>
 
                     <div class="form-group">
                         <label>Date</label>
                         <input type="date" name="schedule_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" name="start_time">
                     </div>
 
                     <div class="form-group">
@@ -147,12 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label>Tim Yang Bertugas</label>
                         <input type="text" name="assigned_to">
                     </div>
-
-                    <div class="form-group">
-                        <label>Time</label>
-                        <input type="time" name="start_time">
-                    </div>
-
+                    
                     <div class="form-group">
                         <label>Description</label>
                         <textarea name="description" rows="10" required></textarea>
