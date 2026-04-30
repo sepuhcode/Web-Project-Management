@@ -1,63 +1,177 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SIS Dashboard - Team Project Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Deskripsi
 
-## About Laravel
+SIS Dashboard adalah sistem manajemen proyek berbasis PHP native yang dikonversi dari HTML statis. Sistem ini memungkinkan pengelolaan proyek, tugas, isu, dan pelaporan tanpa memerlukan autentikasi atau login.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Manajemen Proyek**: Tambah, edit, dan lihat detail proyek
+- **Manajemen Tugas**: Tugas instalasi dan programming dengan tracking progress
+- **Troubleshooting**: Pelaporan dan penanganan isu/bug
+- **Penjadwalan**: Manajemen jadwal dan timeline tugas
+- **Pelaporan**: Progress report dan dokumentasi
+- **Upload Dokumen**: Sistem upload file untuk dokumentasi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Persyaratan Sistem
 
-## Learning Laravel
+- PHP 7.4 atau lebih tinggi
+- MySQL/MariaDB
+- Web server (Apache, Nginx, atau XAMPP)
+- Ekstensi PHP: mysqli, fileinfo
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Instalasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Setup Database
 
-## Laravel Sponsors
+1. Buat database baru dengan nama `team_project`
+2. Import file `team_project.sql` ke database Anda
+3. Pastikan semua tabel terbuat dengan benar
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Konfigurasi Database
 
-### Premium Partners
+Edit file `config.php` sesuai dengan konfigurasi database Anda:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```php
+$host = 'localhost';        // Ganti jika perlu
+$username = 'root';        // Ganti dengan username database Anda
+$password = '';            // Ganti dengan password database Anda
+$database = 'team_project'; // Nama database
+```
 
-## Contributing
+### 3. Setup Folder
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Pastikan semua file PHP berada di folder yang sama
+2. Buat folder `uploads/` dengan permission write (777) untuk upload file
+3. Pastikan file `styles.css` ada di folder yang sama
 
-## Code of Conduct
+### 4. Akses Aplikasi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Buka browser dan akses:
+- URL utama: `http://localhost/[nama-folder]/index.php`
 
-## Security Vulnerabilities
+## Struktur File
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+project-folder/
+├── config.php                 # Konfigurasi database
+├── index.php                  # Halaman dashboard utama
+├── all_projects.php           # Daftar semua proyek
+├── project_add.php            # Tambah proyek baru
+├── project_edit.php           # Edit proyek
+├── project_details.php        # Detail proyek
+├── installation.php           # Daftar tugas instalasi
+├── installation_add.php        # Tambah tugas instalasi
+├── installation_edit.php       # Edit tugas instalasi
+├── installation_view.php       # Lihat detail tugas instalasi
+├── programming.php            # Daftar tugas programming
+├── programming_add.php         # Tambah tugas programming
+├── programming_edit.php        # Edit tugas programming
+├── programming_view.php        # Lihat detail tugas programming
+├── troubleshooting.php        # Daftar isu/troubleshooting
+├── troubleshooting_add.php     # Tambah isu baru
+├── troubleshooting_edit.php    # Edit isu
+├── troubleshooting_view.php    # Lihat detail isu
+├── schedule.php               # Jadwal dan timeline
+├── schedule_add.php            # Tambah jadwal
+├── schedule_edit.php           # Edit jadwal
+├── schedule_view.php           # Lihat detail jadwal
+├── report_progress.php         # Progress report
+├── report_view.php             # Lihat detail report
+├── documentation_upload.php    # Upload dokumentasi
+├── styles.css                  # File CSS styling
+├── team_project.sql            # File SQL database
+└── uploads/                    # Folder untuk file upload
+```
 
-## License
+## Database Schema
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# Web-Project-Management
->>>>>>> upstream/slicing
+Database `team_project` memiliki tabel-tabel berikut:
+
+- `projects`: Data proyek
+- `tasks`: Data tugas (installation & programming)
+- `issues`: Data isu/troubleshooting
+- `reports`: Data laporan/progress report
+- `attachments`: Data file upload
+- `issue_notes`: Catatan untuk isu
+
+## Penggunaan
+
+### 1. Dashboard
+- Lihat statistik proyek aktif, selesai, dan isu
+- Akses cepat ke fitur tambah proyek
+- Lihat progress overview proyek terbaru
+- Lihat isu dan jadwal terbaru
+
+### 2. Manajemen Proyek
+- **Tambah Proyek**: Klik tombol "+" di dashboard atau halaman proyek
+- **Edit Proyek**: Klik tombol "Edit Project" di detail proyek
+- **Lihat Detail**: Klik pada kartu proyek untuk melihat detail lengkap
+
+### 3. Manajemen Tugas
+- **Installation**: Tugas terkait instalasi hardware/software
+- **Programming**: Tugas terkait pengembangan software
+- Setiap tugas memiliki status, progress, dan timeline
+
+### 4. Troubleshooting
+- Laporkan isu/bug yang ditemukan
+- Tambahkan detail teknis, error code, dan log sistem
+- Track priority dan impact level
+
+### 5. Penjadwalan
+- Lihat semua tugas dalam timeline
+- Filter berdasarkan status dan jenis tugas
+- Tambah jadwal baru untuk tugas
+
+### 6. Pelaporan
+- Buat progress report untuk proyek
+- Upload dokumentasi terkait
+- Lihat statistik dan summary proyek
+
+## Konfigurasi Tambahan
+
+### Upload File
+- Folder `uploads/` harus writable
+- Maksimal ukuran file: 10MB (dapat diubah di php.ini)
+- Format yang didukung: PDF, DOC, DOCX, XLS, XLSX, TXT, JPG, PNG, GIF
+
+### Styling
+- File `styles.css` mengandung semua styling
+- Responsive design untuk mobile dan desktop
+- Warna tema dapat disesuaikan di CSS
+
+## Troubleshooting
+
+### Error Koneksi Database
+- Pastikan konfigurasi di `config.php` benar
+- Cek service MySQL/MariaDB sudah running
+- Verifikasi username dan password database
+
+### Error Upload File
+- Pastikan folder `uploads/` ada dan writable
+- Cek php.ini untuk `upload_max_filesize` dan `post_max_size`
+- Pastikan ekstensi `fileinfo` aktif
+
+### Tampilan Tidak Berfungsi
+- Pastikan file `styles.css` ada dan dapat diakses
+- Cek error log untuk PHP error
+- Verifikasi semua file PHP ter-load dengan benar
+
+## Keamanan
+
+- Semua input data di-sanitize menggunakan prepared statements
+- XSS protection dengan `htmlspecialchars()`
+- SQL injection prevention dengan parameter binding
+- File upload validation untuk type dan size
+
+## Dukungan
+
+Jika mengalami masalah:
+1. Cek error log PHP dan web server
+2. Verifikasi konfigurasi database
+3. Pastikan semua permission folder benar
+4. Refresh browser dan clear cache
+
+## Lisensi
+
+Sistem ini dikembangkan untuk keperluan internal SIS Smart Integrator Solution.
